@@ -11,14 +11,15 @@ export default class Scorecard extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			golferOne : { name: this.props.navigation.state.params.golferOneName, balance: 0, rabbitCount: 0, snakeCount: 0},
-			golferTwo : { name: this.props.navigation.state.params.golferTwoName, balance: 0, rabbitCount: 0, snakeCount: 0},
-			golferThree : { name: this.props.navigation.state.params.golferThreeName, balance: 0, rabbitCount: 0, snakeCount: 0},
-			golferFour : {name: this.props.navigation.state.params.golferFourName, balance: 0, rabbitCount: 0, snakeCount: 0},
-			rabbitUnit : this.props.navigation.state.params.rabbitUnit,
-			snakeUnit: this.props.navigation.state.params.snakeUnit,
+			currentHole: this.props.navigation.state.params.currentHole,
+			currentWolf: this.props.navigation.state.params.currentWolf,
+			golferOne: this.props.navigation.state.params.golferOne,
+			golferTwo: this.props.navigation.state.params.golferTwo,
+			golferThree: this.props.navigation.state.params.golferThree,
+			golferFour: this.props.navigation.state.params.golferFour,
 			betUnit: this.props.navigation.state.params.betUnit,
-			currentHole: 1
+			rabbitUnit : this.props.navigation.state.params.rabbitUnit,
+			snakeUnit: this.props.navigation.state.params.snakeUnit
 		}
 	}
 
@@ -27,71 +28,21 @@ export default class Scorecard extends Component {
 		headerTintColor: 'darkgreen',
 	})
 
-	shouldComponentUpdate() {
+	// componentWillReceiveProps(nextProps) {
 
-	}
-
-	// render() {
-	// 	const { params } = this.props.navigation.state;
-	// 	const { navigate } = this.props.navigation;
-	// 	console.log("SCORECARD PARAMS: ", params)
-	// 	return (
-	// 		<ScrollView style={styles.scrollView}>
-	// 			<HoleInstance holeNumber={1}
-	// 				currentWolf={this.state.golferOne.name}
-	// 				golferOne={this.state.golferOne}
-	// 				golferTwo={this.state.golferTwo}
-	// 				golferThree={this.state.golferThree}
-	// 				golferFour={this.state.golferFour}
-	// 				rabbitUnit={this.state.rabbitUnit}
-	// 				snakeUnit={this.state.snakeUnit}
-	// 				betUnit={this.state.betUnit}
-	// 				currentHole={this.state.currentHole}/>
-	// 			<HoleInstance holeNumber={2}
-	// 				currentWolf={this.state.golferTwo.name}
-	// 				disabled={true}/>
-	// 			<HoleInstance holeNumber={3}
-	// 				currentWolf={this.state.golferThree.name}/>
-	// 			<HoleInstance holeNumber={4}
-	// 				currentWolf={this.state.golferFour.name}/>
-	// 			<HoleInstance holeNumber={5}
-	// 				currentWolf={this.state.golferOne.name}/>
-	// 			<HoleInstance holeNumber={6}
-	// 				currentWolf={this.state.golferTwo.name}/>
-	// 			<HoleInstance holeNumber={7}
-	// 				currentWolf={this.state.golferThree.name}/>
-	// 			<HoleInstance holeNumber={8}
-	// 				currentWolf={this.state.golferFour.name}/>
-	// 			<HoleInstance holeNumber={9}
-	// 				currentWolf={this.state.golferOne.name}/>
-	// 			<HoleInstance holeNumber={10}
-	// 				currentWolf={this.state.golferTwo.name}/>
-	// 			<HoleInstance holeNumber={11}
-	// 				currentWolf={this.state.golferThree.name}/>
-	// 			<HoleInstance holeNumber={12}
-	// 				currentWolf={this.state.golferFour.name}/>
-	// 			<HoleInstance holeNumber={13}
-	// 				currentWolf={this.state.golferOne.name}/>
-	// 			<HoleInstance holeNumber={14}
-	// 				currentWolf={this.state.golferTwo.name}/>
-	// 			<HoleInstance holeNumber={15}
-	// 				currentWolf={this.state.golferThree.name}/>
-	// 			<HoleInstance holeNumber={16}
-	// 				currentWolf={this.state.golferFour.name}/>
-	// 			<HoleInstance holeNumber={17}
-	// 				/>
-	// 			<HoleInstance holeNumber={18}
-	// 				/>
-	// 		</ScrollView>
-	// 	)
 	// }
 
 	render() {
 		const { params } = this.props.navigation.state;
 		const { navigate } = this.props.navigation;
-		console.log("SCORECARD PARAMS: ", params)
+		console.log("SCORECARD PARAMS: ", params);
+		console.log("SCOREDCARD STATE: ", this.state);
 		return (
 			<ScrollView style={styles.scrollView}>
+				<Text>{this.state.golferOne.name} : {this.state.golferOne.balance}</Text>
+				<Text>{this.state.golferTwo.name} : {this.state.golferTwo.balance}</Text>
+				<Text>{this.state.golferThree.name} : {this.state.golferThree.balance}</Text>
+				<Text>{this.state.golferFour.name} : {this.state.golferFour.balance}</Text>
 				<Button
 					style={styles.buttonStyle}
 					textStyle={styles.buttonTextStyle}
@@ -104,7 +55,7 @@ export default class Scorecard extends Component {
 						snakeUnit: this.state.snakeUnit,
 						betUnit : this.state.betUnit,
 						currentHole: this.state.currentHole,
-						currentWolf: this.state.golferOne.name,
+						currentWolf: this.state.currentWolf,
 					})}>
 					Play Hole {this.state.currentHole}
 				</Button>

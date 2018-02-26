@@ -22,6 +22,8 @@ import {
 	SwitchField,
 } from 'react-native-form-generator';
 import Scorecard from './Scorecard';
+import update from 'immutability-helper';
+
 
 export default class GameSetupFourSome extends Component {
 	constructor(props) {
@@ -31,6 +33,10 @@ export default class GameSetupFourSome extends Component {
 			betUnit : this.betUnit,
 			rabbitUnit: this.rabbitUnit,
 			snakeUnit: this.snakeUnit,
+			golferOne: {name:'', balance:0, rabbitCount:0, snakeCount:0},
+			golferTwo: {name:'', balance:0, rabbitCount:0, snakeCount:0},
+			golferThree: {name:'', balance:0, rabbitCount:0, snakeCount:0},
+			golferFour: {name: '', balance:0, rabbitCount:0, snakeCount:0}
 		};
 		this.handleFormChange = this.handleFormChange.bind(this);
 		this.handleFormFocus = this.handleFormFocus.bind(this);
@@ -42,7 +48,17 @@ export default class GameSetupFourSome extends Component {
 	}
 
 	handleFormChange(formData) {
-		this.setState({formData : formData});
+		let firstName = formData.golferOneName;
+		let secondName = formData.golferTwoName;
+		let thirdName = formData.golferThreeName;
+		let fourthName = formData.golferFourName;
+		this.setState({
+			formData : formData,
+			golferOne: update(this.state.golferOne, {name: {$set: firstName}}),
+			golferTwo: update(this.state.golferTwo, {name: {$set: secondName}}),
+			golferThree: update(this.state.golferThree, {name: {$set: thirdName}}),
+			golferFour: update(this.state.golferFour, {name: {$set: fourthName}})
+		});
 		this.props.onFormChange && this.props.onFormChange(formData);
 	}
 
@@ -131,13 +147,15 @@ export default class GameSetupFourSome extends Component {
 							style={styles.buttonStyle}
 							textStyle={styles.buttonTextStyle}
 							onPress={() => navigate('Scorecard', {
-								golferOneName: this.state.formData.golferOneName,
-								golferTwoName: this.state.formData.golferTwoName,
-								golferThreeName: this.state.formData.golferThreeName,
-								golferFourName: this.state.formData.golferFourName,
+								golferOne: this.state.golferOne,
+								golferTwo: this.state.golferTwo,
+								golferThree: this.state.golferThree,
+								golferFour: this.state.golferFour,
 								betUnit : this.state.betUnit,
 								rabbitUnit: this.state.rabbitUnit,
 								snakeUnit: this.state.snakeUnit,
+								currentWolf: this.state.golferOne.name,
+								currentHole: 1,
 							})}>
 							Start Round!
 						</Button>

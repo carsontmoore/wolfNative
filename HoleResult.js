@@ -38,6 +38,8 @@ export default class HoleResult extends Component {
 		}
 		this.handleWolfWin = this.handleWolfWin.bind(this);
 		this.handleSheepWin = this.handleSheepWin.bind(this);
+		this.incrementHole = this.incrementHole.bind(this);
+		this.updateNextWolf = this.updateNextWolf.bind(this);
 	}
 
 	static navigationOptions = ({navigation}) => ({
@@ -54,58 +56,112 @@ export default class HoleResult extends Component {
 		let golferTwoBalance = this.state.golferTwo.balance;
 		let golferThreeBalance = this.state.golferThree.balance;
 		let golferFourBalance = this.state.golferFour.balance;
-		let currentHole = this.state.currentHole;
-		currentHole ++;
-		console.log("current hole: ", currentHole)
 
 		//logic to update balances if wolf wins and wolf is golfer one
 		if(this.state.currentWolf === this.state.golferOne.name) {
-			golferOneBalance += betUnit*3;
-			golferTwoBalance -= betUnit;
-			golferThreeBalance -= betUnit;
-			golferFourBalance -= betUnit;
+			golferOneBalance = golferOneBalance + betUnit*3;
+			golferTwoBalance = golferTwoBalance - betUnit;
+			golferThreeBalance = golferThreeBalance - betUnit;
+			golferFourBalance = golferFourBalance - betUnit;
 		}
 		//golfer two win
 		if(this.state.currentWolf === this.state.golferTwo.name) {
-			golferTwoBalance += betUnit*3;
-			golferOneBalance -= betUnit;
-			golferThreeBalance -= betUnit;
-			golferFourBalance -= betUnit;
+			golferTwoBalance = golferTwoBalance + betUnit*3;
+			golferOneBalance = golferOneBalance - betUnit;
+			golferThreeBalance = golferThreeBalance - betUnit;
+			golferFourBalance = golferFourBalance - betUnit;
 		}
 		//golfer three win
 		if(this.state.currentWolf === this.state.golferThree.name) {
-			golferThreeBalance += betUnit*3;
-			golferOneBalance -= betUnit;
-			golferTwoBalance -= betUnit;
-			golferFourBalance -= betUnit;
+			golferThreeBalance = golferThreeBalance + betUnit*3;
+			golferOneBalance = golferOneBalance - betUnit;
+			golferTwoBalance = golferTwoBalance - betUnit;
+			golferFourBalance = golferFourBalance - betUnit;
 		}
 		//golfer four win
 		if(this.state.currentWolf === this.state.golferFour.name) {
-			golferFourBalance += betUnit*3;
-			golferOneBalance -= betUnit;
-			golferTwoBalance -= betUnit;
-			golferThreeBalance -= betUnit;
+			golferFourBalance = golferFourBalance + betUnit*3;
+			golferOneBalance = golferOneBalance - betUnit;
+			golferTwoBalance = golferTwoBalance - betUnit;
+			golferThreeBalance = golferThreeBalance - betUnit;
 		}
 		//update state with new data
-		this.setState({
+	  this.setState({
   		golferOne: update(this.state.golferOne, {balance: {$set: golferOneBalance}}),
   		golferTwo: update(this.state.golferTwo, {balance: {$set: golferTwoBalance}}),
   		golferThree: update(this.state.golferThree, {balance: {$set: golferThreeBalance}}),
-  		golferFour: update(this.state.golferFour, {balance: {$set: golferFourBalance}}),
-  		currentHole: update(this.state.currentHole, {$set: currentHole})
+  		golferFour: update(this.state.golferFour, {balance: {$set: golferFourBalance}})
 		})
 	}
 
 	handleSheepWin() {
 		let betUnit = this.state.betUnit;
 		let teamWolf = this.state.teamWolf;
-		let teamSheep = this.this.state.teamSheep;
+		let teamSheep = this.state.teamSheep;
+		let golferOneBalance = this.state.golferOne.balance;
+		let golferTwoBalance = this.state.golferTwo.balance;
+		let golferThreeBalance = this.state.golferThree.balance;
+		let golferFourBalance = this.state.golferFour.balance;
+
+		//logic to update balances if sheep win and wolf is golfer one
+		if(this.state.currentWolf === this.state.golferOne.name) {
+			golferOneBalance - betUnit*3;
+			golferTwoBalance + betUnit;
+			golferThreeBalance + betUnit;
+			golferFourBalance + betUnit;
+		}
+		//golfer two loses
+		if(this.state.currentWolf === this.state.golferTwo.name) {
+			golferTwoBalance - betUnit*3;
+			golferOneBalance + betUnit;
+			golferThreeBalance + betUnit;
+			golferFourBalance + betUnit;
+		}
+		//golfer three loses
+		if(this.state.currentWolf === this.state.golferThree.name) {
+			golferThreeBalance - betUnit*3;
+			golferOneBalance + betUnit;
+			golferTwoBalance + betUnit;
+			golferFourBalance + betUnit;
+		}
+		//golfer four loses
+		if(this.state.currentWolf === this.state.golferFour.name) {
+			golferFourBalance - betUnit*3;
+			golferOneBalance + betUnit;
+			golferTwoBalance + betUnit;
+			golferThreeBalance + betUnit;
+		}
+		//update state with new data
+		this.setState({
+  		golferOne: update(this.state.golferOne, {balance: {$set: golferOneBalance}}),
+  		golferTwo: update(this.state.golferTwo, {balance: {$set: golferTwoBalance}}),
+  		golferThree: update(this.state.golferThree, {balance: {$set: golferThreeBalance}}),
+  		golferFour: update(this.state.golferFour, {balance: {$set: golferFourBalance}})
+		})
+	}
+
+	incrementHole() {
+		let currentHole = this.state.currentHole;
+		currentHole ++ ;
+		this.setState({
+			currentHole: currentHole,
+		})
+	}
+
+	updateNextWolf() {
+		let newWolf;
+		let currentWolf = this.state.currentWolf;
+		currentWolf === this.state.golferOne.name ? newWolf = this.state.golferTwo.name : currentWolf === this.state.golferTwo.name ? newWolf = this.state.golferThree.name : currentWolf === this.state.golferThree.name ? newWolf = this.state.golferFour.name : currentWolf === this.state.golferFour.name ? newWolf = this.state.golferOne.name : null ;
+		this.setState({
+			currentWolf : newWolf,
+		})
 	}
 
 	render(){
 		const { navigate } = this.props.navigation;
 		const { params } = this.props.navigation.state;
-		console.log("HOLE RESULTS state on initial render: ", this.state)
+		console.log("initial result render state check: ", this.state)
+		console.log("initial result render params check: ",params)
 
 		return (
 			<View>
@@ -115,13 +171,8 @@ export default class HoleResult extends Component {
 				ref="wolfWinsButton"
 				onPress={() => {
 					this.handleWolfWin(),
-					navigate('Scorecard', {
-						golferOne: this.state.golferOne,
-						golferTwo: this.state.golferTwo,
-						golferThree: this.state.golferThree,
-						golferFour: this.state.golferFour,
-						currentHole: this.state.currentHole,
-					})
+					this.incrementHole(),
+					this.updateNextWolf()
 				}}>
 					Team Wolf Wins!
 				</Button>
@@ -129,7 +180,10 @@ export default class HoleResult extends Component {
 				style={styles.buttonStyle}
 				textStyle={styles.buttonTextStyle}
 				ref="sheepWinsButtons"
-				onPress={() => this.handleSheepWin()}>
+				onPress={() => {
+					this.handleSheepWin(),
+					this.incrementHole()
+				}}>
 					Team Sheep Wins!
 				</Button>
 				<Button
@@ -141,6 +195,27 @@ export default class HoleResult extends Component {
 				style={styles.buttonStyle}
 				textStyle={styles.buttonTextStyle}>
 					Add Snakes
+				</Button>
+				<Text>{this.state.currentWolf} is the new Wolf!</Text>
+				<Button
+					style={styles.buttonStyle}
+					textStyle={styles.buttonTextStyle}
+					onPress={() => {
+						navigate('Scorecard', {
+							golferOne: this.state.golferOne,
+							golferTwo: this.state.golferTwo,
+							golferThree: this.state.golferThree,
+							golferFour: this.state.golferFour,
+							currentHole: this.state.currentHole,
+							currentWolf: this.state.currentWolf,
+							betUnit: this.state.betUnit,
+							rabbitUnit: this.state.rabbitUnit,
+							snakeUnit: this.state.snakeUnit,
+							teamSheep: this.state.teamSheep,
+							teamWolf:this.state.teamWolf
+						})
+					}}>
+						Advance to hole {this.state.currentHole}
 				</Button>
 			</View>
 		)

@@ -51,10 +51,8 @@ export default class HoleSetup extends Component {
 
 	handleWolf() {
 		let teamWolf = [...this.state.teamWolf, this.state.currentWolf];
-		console.log("teamWolf should only be current wolf in array: ", teamWolf);
 		let teamSheep;
 		this.state.currentWolf === this.state.golferOne.name ? teamSheep = [this.state.golferTwo.name, this.state.golferThree.name, this.state.golferFour.name] : this.state.currentWolf === this.state.golferTwo.name ? teamSheep = [this.state.golferOne.name, this.state.golferThree.name, this.state.golferFour.name] : this.state.currentWolf === this.state.golferThree.name ? teamSheep = [this.state.golferOne.name, this.state.golferTwo.name, this.state.golferFour.name] : this.state.currentWolf === this.state.golferFour.name ? teamSheep = [this.state.golferOne.name, this.state.golferTwo.name, this.state.golferThree.name] : null ;
-		console.log("teamSheep should be everyone but Carson: ", teamSheep);
 		this.setState({
 			teamWolf : teamWolf,
 			teamSheep : teamSheep
@@ -158,15 +156,13 @@ export default class HoleSetup extends Component {
 
 
 
-	componentWillReceiveProps() {
-		// this is where we should reset state of current wolf and current hole
-	}
+	//  componentWillReceiveProps() {
+	// 	// this is where we should reset state of current wolf and current hole
+	// }
 
 	render() {
 		const { navigate } = this.props.navigation;
 		const { params } = this.props.navigation.state;
-		console.log("SETUP PARAMS: ", params)
-
 		return (
 			<View>
 				<Text style={styles.textStyle}>
@@ -187,7 +183,7 @@ export default class HoleSetup extends Component {
 							snakeUnit: this.state.snakeUnit,
 							betUnit : this.state.betUnit,
 							currentHole: this.state.currentHole,
-							currentWolf: this.state.golferOne.name,
+							currentWolf: this.state.currentWolf,
 							teamWolf : this.state.teamWolf,
 							teamSheep : this.state.teamSheep,
 						});
@@ -209,7 +205,7 @@ export default class HoleSetup extends Component {
 							snakeUnit: this.state.snakeUnit,
 							betUnit : this.state.betUnit,
 							currentHole: this.state.currentHole,
-							currentWolf: this.state.golferOne.name,
+							currentWolf: this.state.currentWolf,
 							teamWolf : this.state.teamWolf,
 							teamSheep : this.state.teamSheep,
 						})
@@ -231,7 +227,7 @@ export default class HoleSetup extends Component {
 							snakeUnit: this.state.snakeUnit,
 							betUnit : this.state.betUnit,
 							currentHole: this.state.currentHole,
-							currentWolf: this.state.golferOne.name,
+							currentWolf: this.state.currentWolf,
 							teamWolf : this.state.teamWolf,
 							teamSheep : this.state.teamSheep,
 						})
@@ -256,12 +252,12 @@ export default class HoleSetup extends Component {
 							snakeUnit: this.state.snakeUnit,
 							betUnit : this.state.betUnit,
 							currentHole: this.state.currentHole,
-							currentWolf: this.state.golferOne.name,
+							currentWolf: this.state.currentWolf,
 							teamWolf : this.state.teamWolf,
 							teamSheep : this.state.teamSheep,
 						})
 					}}>
-					Partner with{this.state.currentWolf === this.state.golferOne.name ? this.state.golferTwo.name : this.state.currentWolf === this.state.golferTwo.name ? this.state.golferThreeName : this.state.currentWolf === this.state.golferThree.name ? this.state.golferFour.name : this.state.currentWolf === this.state.golferFour.name ? this.state.golferOne.name : null}
+					Partner with{this.state.currentWolf === this.state.golferOne.name ? this.state.golferTwo.name : this.state.currentWolf === this.state.golferTwo.name ? this.state.golferThree.name : this.state.currentWolf === this.state.golferThree.name ? this.state.golferFour.name : this.state.currentWolf === this.state.golferFour.name ? this.state.golferOne.name : null}
 				</Button>
 				<Button
 					style={styles.buttonStyle}
@@ -278,7 +274,7 @@ export default class HoleSetup extends Component {
 							snakeUnit: this.state.snakeUnit,
 							betUnit : this.state.betUnit,
 							currentHole: this.state.currentHole,
-							currentWolf: this.state.golferOne.name,
+							currentWolf: this.state.currentWolf,
 							teamWolf : this.state.teamWolf,
 							teamSheep : this.state.teamSheep,
 						})
@@ -300,7 +296,7 @@ export default class HoleSetup extends Component {
 							snakeUnit: this.state.snakeUnit,
 							betUnit : this.state.betUnit,
 							currentHole: this.state.currentHole,
-							currentWolf: this.state.golferOne.name,
+							currentWolf: this.state.currentWolf,
 							teamWolf : this.state.teamWolf,
 							teamSheep : this.state.teamSheep,
 						})
