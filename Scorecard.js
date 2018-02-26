@@ -64,7 +64,6 @@ export default class Scorecard extends Component {
 	}
 }
 
-
 const styles = StyleSheet.create({
 	scrollView : {
 		flex: 1

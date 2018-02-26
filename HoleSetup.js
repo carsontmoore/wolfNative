@@ -61,7 +61,7 @@ export default class HoleSetup extends Component {
 
 	handleLoneWolf() {
 		let betUnit = this.state.betUnit;
-		betUnit*2;
+		betUnit = betUnit * 2;
 		let teamWolf = [...this.state.teamWolf, this.state.currentWolf];
 		let teamSheep;
 		this.state.currentWolf === this.state.golferOne.name ? teamSheep = [...this.state.teamSheep, this.state.golferTwo.name, this.state.golferThree.name, this.state.golferFour.name] : this.state.currentWolf === this.state.golferTwo.name ? teamSheep = [...this.state.teamSheep, this.state.golferOne.name, this.state.golferThree.name, this.state.golferFour.name] : this.state.currentWolf === this.state.golferThree.name ? teamSheep = [...this.state.teamSheep, this.state.golferOne.name, this.state.golferTwo.name, this.state.golferFour.name] : this.state.currentWolf === this.state.golferFour.name ? teamSheep = [...this.state.teamSheep, this.state.golferOne.name, this.state.golferTwo.name, this.state.golferThree.name] : null ;
@@ -74,7 +74,7 @@ export default class HoleSetup extends Component {
 
 	handleBlindWolf() {
 		let betUnit = this.state.betUnit;
-		betUnit*3;
+		betUnit = betUnit * 3;
 		let teamWolf = [...this.state.teamWolf, this.state.currentWolf];
 		let teamSheep;
 		this.state.currentWolf === this.state.golferOne.name ? teamSheep = [...this.state.teamSheep, this.state.golferTwo.name, this.state.golferThree.name, this.state.golferFour.name] : this.state.currentWolf === this.state.golferTwo.name ? teamSheep = [...this.state.teamSheep, this.state.golferOne.name, this.state.golferThree.name, this.state.golferFour.name] : this.state.currentWolf === this.state.golferThree.name ? teamSheep = [...this.state.teamSheep, this.state.golferOne.name, this.state.golferTwo.name, this.state.golferFour.name] : this.state.currentWolf === this.state.golferFour.name ? teamSheep = [...this.state.teamSheep, this.state.golferOne.name, this.state.golferTwo.name, this.state.golferThree.name] : null ;
@@ -86,8 +86,8 @@ export default class HoleSetup extends Component {
 	}
 
 	handlePartnerOne() {
-		let teamWolf ;
-		let teamSheep ;
+		let teamWolf = [...this.state.teamWolf, this.state.currentWolf];
+		let teamSheep;
 		//Check currentWolf, then assign teams as appropriate
 		this.state.currentWolf === this.state.golferOne.name ? (
 			//currentWolf is golferOne, this expression assigns wolf and golferTwo to teamWolf.
@@ -173,20 +173,7 @@ export default class HoleSetup extends Component {
 					textStyle={styles.buttonTextStyle}
 					ref="wolfButton"
 					onPress={() => {
-						this.handleWolf(),
-						navigate('HoleResult', {
-							golferOne: this.state.golferOne,
-							golferTwo: this.state.golferTwo,
-							golferThree: this.state.golferThree,
-							golferFour: this.state.golferFour,
-							rabbitUnit: this.state.rabbitUnit,
-							snakeUnit: this.state.snakeUnit,
-							betUnit : this.state.betUnit,
-							currentHole: this.state.currentHole,
-							currentWolf: this.state.currentWolf,
-							teamWolf : this.state.teamWolf,
-							teamSheep : this.state.teamSheep,
-						});
+						this.handleWolf()
 					}}>
 					Wolf
 				</Button>
@@ -195,20 +182,7 @@ export default class HoleSetup extends Component {
 					textStyle={styles.buttonTextStyle}
 					ref="loneWolfButton"
 					onPress={() => {
-						this.handleLoneWolf(),
-						navigate('HoleResult', {
-							golferOne: this.state.golferOne,
-							golferTwo: this.state.golferTwo,
-							golferThree: this.state.golferThree,
-							golferFour: this.state.golferFour,
-							rabbitUnit: this.state.rabbitUnit,
-							snakeUnit: this.state.snakeUnit,
-							betUnit : this.state.betUnit,
-							currentHole: this.state.currentHole,
-							currentWolf: this.state.currentWolf,
-							teamWolf : this.state.teamWolf,
-							teamSheep : this.state.teamSheep,
-						})
+						this.handleLoneWolf()
 					}}>
 					Lone Wolf (bet x 2)
 				</Button>
@@ -217,21 +191,8 @@ export default class HoleSetup extends Component {
 					textStyle={styles.buttonTextStyle}
 					ref="blindWolfButton"
 					onPress={() => {
-						this.handleBlindWolf,
-						navigate('HoleResult', {
-							golferOne: this.state.golferOne,
-							golferTwo: this.state.golferTwo,
-							golferThree: this.state.golferThree,
-							golferFour: this.state.golferFour,
-							rabbitUnit: this.state.rabbitUnit,
-							snakeUnit: this.state.snakeUnit,
-							betUnit : this.state.betUnit,
-							currentHole: this.state.currentHole,
-							currentWolf: this.state.currentWolf,
-							teamWolf : this.state.teamWolf,
-							teamSheep : this.state.teamSheep,
-						})
-					}}>
+						this.handleBlindWolf()
+				}}>
 					Blind Wolf (bet x 3)
 				</Button>
 				<Text style={styles.textStyle}>
@@ -242,20 +203,7 @@ export default class HoleSetup extends Component {
 					textStyle={styles.buttonTextStyle}
 					ref="partnerOne"
 					onPress={() => {
-						this.handlePartnerOne,
-						navigate('HoleResult', {
-							golferOne: this.state.golferOne,
-							golferTwo: this.state.golferTwo,
-							golferThree: this.state.golferThree,
-							golferFour: this.state.golferFour,
-							rabbitUnit: this.state.rabbitUnit,
-							snakeUnit: this.state.snakeUnit,
-							betUnit : this.state.betUnit,
-							currentHole: this.state.currentHole,
-							currentWolf: this.state.currentWolf,
-							teamWolf : this.state.teamWolf,
-							teamSheep : this.state.teamSheep,
-						})
+						this.handlePartnerOne()
 					}}>
 					Partner with{this.state.currentWolf === this.state.golferOne.name ? this.state.golferTwo.name : this.state.currentWolf === this.state.golferTwo.name ? this.state.golferThree.name : this.state.currentWolf === this.state.golferThree.name ? this.state.golferFour.name : this.state.currentWolf === this.state.golferFour.name ? this.state.golferOne.name : null}
 				</Button>
@@ -264,20 +212,7 @@ export default class HoleSetup extends Component {
 					textStyle={styles.buttonTextStyle}
 					ref="partnerTwo"
 					onPress={() => {
-						this.handlePartnerTwo,
-						navigate('HoleResult', {
-							golferOne: this.state.golferOne,
-							golferTwo: this.state.golferTwo,
-							golferThree: this.state.golferThree,
-							golferFour: this.state.golferFour,
-							rabbitUnit: this.state.rabbitUnit,
-							snakeUnit: this.state.snakeUnit,
-							betUnit : this.state.betUnit,
-							currentHole: this.state.currentHole,
-							currentWolf: this.state.currentWolf,
-							teamWolf : this.state.teamWolf,
-							teamSheep : this.state.teamSheep,
-						})
+						this.handlePartnerTwo()
 					}}>
 					Partner with{this.state.currentWolf === this.state.golferOne.name ? this.state.golferThree.name : this.state.currentWolf === this.state.golferTwo.name ? this.state.golferFour.name : this.state.currentWolf === this.state.golferThree.name ? this.state.golferOne.name : this.state.currentWolf === this.state.golferFour.name ? this.state.golferTwo.name : null}
 				</Button>
@@ -286,8 +221,17 @@ export default class HoleSetup extends Component {
 					textStyle={styles.buttonTextStyle}
 					ref="partnerThree"
 					onPress={() => {
-						this.handlePartnerThree,
-						navigate('HoleResult', {
+						this.handlePartnerThree()
+					}}>
+					Partner with{this.state.currentWolf === this.state.golferOne.name ? this.state.golferFour.name : this.state.currentWolf === this.state.golferTwo.name ? this.state.golferOne.name : this.state.currentWolf === this.state.golferThree.name ? this.state.golferTwo.name : this.state.currentWolf === this.state.golferFour.name ? this.state.golferThree.name : null}
+				</Button>
+				<Text>Team Wolf is {this.state.teamWolf}</Text>
+				<Text>Team Sheep is {this.state.teamSheep}</Text>
+				<Button
+				style={styles.buttonStyle}
+				textStyle={styles.buttonTextStyle}
+				onPress={() => {
+					navigate('HoleResult', {
 							golferOne: this.state.golferOne,
 							golferTwo: this.state.golferTwo,
 							golferThree: this.state.golferThree,
@@ -300,8 +244,8 @@ export default class HoleSetup extends Component {
 							teamWolf : this.state.teamWolf,
 							teamSheep : this.state.teamSheep,
 						})
-					}}>
-					Partner with{this.state.currentWolf === this.state.golferOne.name ? this.state.golferFour.name : this.state.currentWolf === this.state.golferTwo.name ? this.state.golferOne.name : this.state.currentWolf === this.state.golferThree.name ? this.state.golferTwo.name : this.state.currentWolf === this.state.golferFour.name ? this.state.golferThree.name : null}
+				}}>
+					Who wins the hole?
 				</Button>
 			</View>
 		)

@@ -56,42 +56,83 @@ export default class HoleResult extends Component {
 		let golferTwoBalance = this.state.golferTwo.balance;
 		let golferThreeBalance = this.state.golferThree.balance;
 		let golferFourBalance = this.state.golferFour.balance;
-
-		//logic to update balances if wolf wins and wolf is golfer one
-		if(this.state.currentWolf === this.state.golferOne.name) {
-			golferOneBalance = golferOneBalance + betUnit*3;
-			golferTwoBalance = golferTwoBalance - betUnit;
-			golferThreeBalance = golferThreeBalance - betUnit;
-			golferFourBalance = golferFourBalance - betUnit;
-		}
-		//golfer two win
-		if(this.state.currentWolf === this.state.golferTwo.name) {
-			golferTwoBalance = golferTwoBalance + betUnit*3;
-			golferOneBalance = golferOneBalance - betUnit;
-			golferThreeBalance = golferThreeBalance - betUnit;
-			golferFourBalance = golferFourBalance - betUnit;
-		}
-		//golfer three win
-		if(this.state.currentWolf === this.state.golferThree.name) {
-			golferThreeBalance = golferThreeBalance + betUnit*3;
-			golferOneBalance = golferOneBalance - betUnit;
-			golferTwoBalance = golferTwoBalance - betUnit;
-			golferFourBalance = golferFourBalance - betUnit;
-		}
-		//golfer four win
-		if(this.state.currentWolf === this.state.golferFour.name) {
-			golferFourBalance = golferFourBalance + betUnit*3;
-			golferOneBalance = golferOneBalance - betUnit;
-			golferTwoBalance = golferTwoBalance - betUnit;
-			golferThreeBalance = golferThreeBalance - betUnit;
-		}
-		//update state with new data
-	  this.setState({
-  		golferOne: update(this.state.golferOne, {balance: {$set: golferOneBalance}}),
-  		golferTwo: update(this.state.golferTwo, {balance: {$set: golferTwoBalance}}),
-  		golferThree: update(this.state.golferThree, {balance: {$set: golferThreeBalance}}),
-  		golferFour: update(this.state.golferFour, {balance: {$set: golferFourBalance}})
-		})
+    // logic to update golfers' balances for solo wolf win
+    if(teamWolf.length === 1) {
+      //golferOne is wolf
+      if(this.state.currentWolf === this.state.golferOne.name) {
+        golferOneBalance = golferOneBalance + betUnit*3;
+        golferTwoBalance = golferTwoBalance - betUnit;
+        golferThreeBalance = golferThreeBalance - betUnit;
+        golferFourBalance = golferFourBalance - betUnit;
+      }
+      //golferTwo is wolf
+      if(this.state.currentWolf === this.state.golferTwo.name) {
+        golferTwoBalance = golferTwoBalance + betUnit*3;
+        golferOneBalance = golferOneBalance - betUnit;
+        golferThreeBalance = golferThreeBalance - betUnit;
+        golferFourBalance = golferFourBalance - betUnit;
+      }
+      //golferThree is wolf
+      if(this.state.currentWolf === this.state.golferThree.name) {
+        golferThreeBalance = golferThreeBalance + betUnit*3;
+        golferOneBalance = golferOneBalance - betUnit;
+        golferTwoBalance = golferTwoBalance - betUnit;
+        golferFourBalance = golferFourBalance - betUnit;
+      }
+      //golfeFour is wolf
+      if(this.state.currentWolf === this.state.golferFour.name) {
+        golferFourBalance = golferFourBalance + betUnit*3;
+        golferOneBalance = golferOneBalance - betUnit;
+        golferTwoBalance = golferTwoBalance - betUnit;
+        golferThreeBalance = golferThreeBalance - betUnit;
+      }
+    }
+    // logic to update golfers' balances for two wolf winners
+    if(teamWolf.length === 2) {
+      if(teamWolf.includes(this.state.golferOne.name) && teamWolf.includes(this.state.golferTwo.name)) {
+        golferOneBalance = golferOneBalance + betUnit;
+        golferTwoBalance = golferTwoBalance + betUnit;
+        golferThreeBalance = golferThreeBalance - betUnit;
+        golferFourBalance = golferFourBalance - betUnit;
+      }
+      if(teamWolf.includes(this.state.golferOne.name) && teamWolf.includes(this.state.golferThree.name)) {
+        golferOneBalance = golferOneBalance + betUnit;
+        golferThreeBalance = golferThreeBalance + betUnit;
+        golferTwoBalance = golferTwoBalance - betUnit;
+        golferFourBalance = golferFourBalance - betUnit;
+      }
+      if(teamWolf.includes(this.state.golferOne.name) && teamWolf.includes(this.state.golferFour.name)) {
+        golferOneBalance = golferOneBalance + betUnit;
+        golferFourBalance = golferFourBalance + betUnit;
+        golferTwoBalance = golferTwoBalance - betUnit;
+        golferThreeBalance = golferThreeBalance - betUnit;
+      }
+      if(teamWolf.includes(this.state.golferTwo.name) && teamWolf.includes(this.state.golferThree.name)) {
+        golferTwoBalance = golferTwoBalance + betUnit;
+        golferThreeBalance = golferThreeBalance + betUnit;
+        golferOneBalance = golferOneBalance - betUnit;
+        golferFourBalance = golferFourBalance - betUnit;
+      }
+      if(teamWolf.includes(this.state.golferTwo.name) && teamWolf.includes(this.state.golferFour.name)) {
+        golferTwoBalance = golferTwoBalance + betUnit;
+        golferFourBalance = golferFourBalance + betUnit;
+        golferOneBalance = golferOneBalance - betUnit;
+        golferThreeBalance = golferThreeBalance - betUnit;
+      }
+      if(teamWolf.includes(this.state.golferThree.name) && teamWolf.includes(this.state.golferFour.name)) {
+        golferThreeBalance = golferThreeBalance + betUnit;
+        golferFourBalance = golferFourBalance + betUnit;
+        golferOneBalance = golferOneBalance - betUnit;
+        golferTwoBalance = golferTwoBalance - betUnit;
+      }
+    }
+    //update state with new balances
+    this.setState({
+      golferOne: update(this.state.golferOne, {balance: {$set: golferOneBalance}}),
+      golferTwo: update(this.state.golferTwo, {balance: {$set: golferTwoBalance}}),
+      golferThree: update(this.state.golferThree, {balance: {$set: golferThreeBalance}}),
+      golferFour: update(this.state.golferFour, {balance: {$set: golferFourBalance}})
+    })
 	}
 
 	handleSheepWin() {
@@ -186,6 +227,11 @@ export default class HoleResult extends Component {
 				}}>
 					Team Sheep Wins!
 				</Button>
+        <Button
+        style={styles.buttonStyle}
+        textStyle={styles.buttonTextStyle}>
+          Push - bet carries over!
+        </Button>
 				<Button
 				style={styles.buttonStyle}
 				textStyle={styles.buttonTextStyle}>
@@ -197,6 +243,7 @@ export default class HoleResult extends Component {
 					Add Snakes
 				</Button>
 				<Text>{this.state.currentWolf} is the new Wolf!</Text>
+        <Text>The starting bet for the next hole is {this.state.betUnit}</Text>
 				<Button
 					style={styles.buttonStyle}
 					textStyle={styles.buttonTextStyle}
