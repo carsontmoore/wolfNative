@@ -33,6 +33,7 @@ export default class HoleResult extends Component {
 			snakeUnit : this.props.navigation.state.params.snakeUnit,
 			currentHole : this.props.navigation.state.params.currentHole,
 			currentWolf : this.props.navigation.state.params.currentWolf,
+      initialBetUnit: this.props.navigation.state.params.initialBetUnit,
 			teamWolf : this.props.navigation.state.params.teamWolf,
 			teamSheep : this.props.navigation.state.params.teamSheep,
 		}
@@ -40,6 +41,7 @@ export default class HoleResult extends Component {
 		this.handleSheepWin = this.handleSheepWin.bind(this);
 		this.incrementHole = this.incrementHole.bind(this);
 		this.updateNextWolf = this.updateNextWolf.bind(this);
+    this.resetBetUnit = this.resetBetUnit.bind(this);
 	}
 
 	static navigationOptions = ({navigation}) => ({
@@ -225,10 +227,13 @@ export default class HoleResult extends Component {
 	incrementHole() {
 		let currentHole = this.state.currentHole;
 		currentHole ++ ;
-		this.setState({
-			currentHole: currentHole,
-		})
+		this.setState({currentHole : currentHole})
 	}
+
+  resetBetUnit() {
+    let initialBetUnit = this.state.initialBetUnit;
+    this.setState({betUnit : initialBetUnit})
+  }
 
 	updateNextWolf() {
 		let newWolf;
@@ -242,9 +247,7 @@ export default class HoleResult extends Component {
 	render(){
 		const { navigate } = this.props.navigation;
 		const { params } = this.props.navigation.state;
-		console.log("initial result render state check: ", this.state)
-		console.log("initial result render params check: ",params)
-
+		console.log("Result state: ", this.state)
 		return (
 			<View>
 				<Button
@@ -254,7 +257,8 @@ export default class HoleResult extends Component {
 				onPress={() => {
 					this.handleWolfWin(),
 					this.incrementHole(),
-					this.updateNextWolf()
+					this.updateNextWolf(),
+          this.resetBetUnit()
 				}}>
 					Team Wolf Wins!
 				</Button>
@@ -264,7 +268,9 @@ export default class HoleResult extends Component {
 				ref="sheepWinsButtons"
 				onPress={() => {
 					this.handleSheepWin(),
-					this.incrementHole()
+					this.incrementHole(),
+          this.updateNextWolf(),
+          this.resetBetUnit()
 				}}>
 					Team Sheep Wins!
 				</Button>
@@ -300,7 +306,8 @@ export default class HoleResult extends Component {
 							rabbitUnit: this.state.rabbitUnit,
 							snakeUnit: this.state.snakeUnit,
 							teamSheep: this.state.teamSheep,
-							teamWolf:this.state.teamWolf
+							teamWolf:this.state.teamWolf,
+              initialBetUnit: this.state.initialBetUnit
 						})
 					}}>
 						Advance to hole {this.state.currentHole}

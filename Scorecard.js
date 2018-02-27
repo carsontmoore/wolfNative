@@ -19,7 +19,8 @@ export default class Scorecard extends Component {
 			golferFour: this.props.navigation.state.params.golferFour,
 			betUnit: this.props.navigation.state.params.betUnit,
 			rabbitUnit : this.props.navigation.state.params.rabbitUnit,
-			snakeUnit: this.props.navigation.state.params.snakeUnit
+			snakeUnit: this.props.navigation.state.params.snakeUnit,
+			initialBetUnit: this.props.navigation.state.params.initialBetUnit
 		}
 	}
 
@@ -56,6 +57,7 @@ export default class Scorecard extends Component {
 						betUnit : this.state.betUnit,
 						currentHole: this.state.currentHole,
 						currentWolf: this.state.currentWolf,
+						initialBetUnit: this.state.initialBetUnit
 					})}>
 					Play Hole {this.state.currentHole}
 				</Button>

@@ -36,7 +36,8 @@ export default class GameSetupFourSome extends Component {
 			golferOne: {name:'', balance:0, rabbitCount:0, snakeCount:0},
 			golferTwo: {name:'', balance:0, rabbitCount:0, snakeCount:0},
 			golferThree: {name:'', balance:0, rabbitCount:0, snakeCount:0},
-			golferFour: {name: '', balance:0, rabbitCount:0, snakeCount:0}
+			golferFour: {name: '', balance:0, rabbitCount:0, snakeCount:0},
+			initialBetUnit: this.betUnit
 		};
 		this.handleFormChange = this.handleFormChange.bind(this);
 		this.handleFormFocus = this.handleFormFocus.bind(this);
@@ -110,8 +111,14 @@ export default class GameSetupFourSome extends Component {
 						minimum value={1}
 						step={1}
 						value={this.state.betUnit}
-						onValueChange={(betUnit) => this.setState({betUnit: betUnit})}
-						onSlidingComplete={(betUnit) => this.setState({betUnit: betUnit}) }  />
+						onValueChange={(betUnit) => this.setState({
+							betUnit: betUnit,
+							initialBetUnit: betUnit
+						})}
+						onSlidingComplete={(betUnit) => this.setState({
+							betUnit: betUnit,
+							initialBetUnit: betUnit
+						}) }  />
 					{ this.state.formData.rabbitsIncluded ?
 						<Text style={styles.textStyle}> Set rabbit amount: {this.state.rabbitUnit}</Text> :
 						<Text style={styles.disabledSliderTextStyle}>Set rabbit amount:</Text>
@@ -156,6 +163,7 @@ export default class GameSetupFourSome extends Component {
 								snakeUnit: this.state.snakeUnit,
 								currentWolf: this.state.golferOne.name,
 								currentHole: 1,
+								initialBetUnit: this.state.initialBetUnit
 							})}>
 							Start Round!
 						</Button>

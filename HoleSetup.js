@@ -32,6 +32,7 @@ export default class HoleSetup extends Component {
 			snakeUnit : this.props.navigation.state.params.snakeUnit,
 			currentHole : this.props.navigation.state.params.currentHole,
 			currentWolf: this.props.navigation.state.params.currentWolf,
+			initialBetUnit: this.props.navigation.state.params.initialBetUnit,
 			teamWolf: [],
 			teamSheep: [],
 		}
@@ -161,6 +162,7 @@ export default class HoleSetup extends Component {
 	render() {
 		const { navigate } = this.props.navigation;
 		const { params } = this.props.navigation.state;
+		console.log('Setup State: ', this.state);
 		return (
 			<View>
 				<Text style={styles.textStyle}>
@@ -241,6 +243,7 @@ export default class HoleSetup extends Component {
 							currentWolf: this.state.currentWolf,
 							teamWolf : this.state.teamWolf,
 							teamSheep : this.state.teamSheep,
+							initialBetUnit: this.state.initialBetUnit
 						})
 				}}>
 					Who wins the hole?
