@@ -144,39 +144,80 @@ export default class HoleResult extends Component {
 		let golferThreeBalance = this.state.golferThree.balance;
 		let golferFourBalance = this.state.golferFour.balance;
 
-		//logic to update balances if sheep win and wolf is golfer one
-		if(this.state.currentWolf === this.state.golferOne.name) {
-			golferOneBalance - betUnit*3;
-			golferTwoBalance + betUnit;
-			golferThreeBalance + betUnit;
-			golferFourBalance + betUnit;
-		}
-		//golfer two loses
-		if(this.state.currentWolf === this.state.golferTwo.name) {
-			golferTwoBalance - betUnit*3;
-			golferOneBalance + betUnit;
-			golferThreeBalance + betUnit;
-			golferFourBalance + betUnit;
-		}
-		//golfer three loses
-		if(this.state.currentWolf === this.state.golferThree.name) {
-			golferThreeBalance - betUnit*3;
-			golferOneBalance + betUnit;
-			golferTwoBalance + betUnit;
-			golferFourBalance + betUnit;
-		}
-		//golfer four loses
-		if(this.state.currentWolf === this.state.golferFour.name) {
-			golferFourBalance - betUnit*3;
-			golferOneBalance + betUnit;
-			golferTwoBalance + betUnit;
-			golferThreeBalance + betUnit;
-		}
-		//update state with new data
-		this.setState({
-  		golferOne: update(this.state.golferOne, {balance: {$set: golferOneBalance}}),
-  		golferTwo: update(this.state.golferTwo, {balance: {$set: golferTwoBalance}}),
-  		golferThree: update(this.state.golferThree, {balance: {$set: golferThreeBalance}}),
+    //logic to update balances for teamSheep win with one wolf
+    if(teamWolf.length === 1) {
+      //wolf is golferOne
+      if(this.state.currentWolf === this.state.golferOne.name) {
+        golferOneBalance = golferOneBalance - betUnit * 3;
+        golferTwoBalance = golferTwoBalance + betUnit;
+        golferThreeBalance = golferThreeBalance + betUnit;
+        golferFourBalance = golferFourBalance + betUnit;
+      }
+      //wolf is golferTwo
+      if(this.state.currentWolf === this.state.golferTwo.name) {
+        golferTwoBalance = golferTwoBalance - betUnit * 3;
+        golferOneBalance = golferOneBalance + betUnit;
+        golferThreeBalance = golferThreeBalance + betUnit;
+        golferFourBalance = golferFourBalance + betUnit;
+      }
+      //wolf is golferThree
+      if(this.state.currentWolf === this.state.golferThree.name) {
+        golferThreeBalance = golferThreeBalance - betUnit * 3;
+        golferOneBalance = golferOneBalance + betUnit;
+        golferTwoBalance = golferTwoBalance + betUnit;
+        golferFourBalance = golferFourBalance + betUnit;
+      }
+      //wolf is golferFour
+      if(this.state.currentWolf === this.state.golferFour.name) {
+        golferFourBalance = golferFourBalance - betUnit * 3;
+        golferOneBalance = golferOneBalance + betUnit;
+        golferTwoBalance = golferTwoBalance + betUnit;
+        golferThreeBalance = golferThreeBalance + betUnit;
+      }
+    }
+    if(teamSheep.length === 2) {
+      if(teamSheep.includes(this.state.golferOne.name) && teamSheep.includes(this.state.golferTwo.name)) {
+        golferOneBalance = golferOneBalance + betUnit;
+        golferTwoBalance = golferTwoBalance + betUnit;
+        golferThreeBalance = golferThreeBalance - betUnit;
+        golferFourBalance = golferFourBalance - betUnit;
+      }
+      if(teamSheep.includes(this.state.golferOne.name) && teamSheep.includes(this.state.golferThree.name)) {
+        golferOneBalance = golferOneBalance + betUnit;
+        golferThreeBalance = golferThreeBalance + betUnit;
+        golferTwoBalance = golferTwoBalance - betUnit;
+        golferFourBalance = golferFourBalance - betUnit;
+      }
+      if(teamSheep.includes(this.state.golferOne.name) && teamSheep.includes(this.state.golferFour.name)) {
+        golferOneBalance = golferOneBalance + betUnit;
+        golferFourBalance = golferFourBalance + betUnit;
+        golferThreeBalance = golferThreeBalance - betUnit;
+        golferTwoBalance = golferTwoBalance - betUnit;
+      }
+      if(teamSheep.includes(this.state.golferTwo.name) && teamSheep.includes(this.state.golferThree.name)) {
+        golferTwoBalance = golferTwoBalance + betUnit;
+        golferThreeBalance = golferThreeBalance + betUnit;
+        golferOneBalance = golferOneBalance - betUnit;
+        golferFourBalance = golferFourBalance - betUnit;
+      }
+      if(teamSheep.includes(this.state.golferTwo.name) && teamSheep.includes(this.state.golferFour.name)) {
+        golferTwoBalance = golferTwoBalance + betUnit;
+        golferFourBalance = golferFourBalance + betUnit;
+        golferThreeBalance = golferThreeBalance - betUnit;
+        golferOneBalance = golferOneBalance - betUnit;
+      }
+      if(teamSheep.includes(this.state.golferThree.name) && teamSheep.includes(this.state.golferFour.name)) {
+        golferThreeBalance = golferThreeBalance + betUnit;
+        golferFourBalance = golferFourBalance + betUnit;
+        golferOneBalance = golferOneBalance - betUnit;
+        golferTwoBalance = golferTwoBalance - betUnit;
+      }
+    }
+    //update state with new data
+    this.setState({
+      golferOne: update(this.state.golferOne, {balance: {$set: golferOneBalance}}),
+      golferTwo: update(this.state.golferTwo, {balance: {$set: golferTwoBalance}}),
+      golferThree: update(this.state.golferThree, {balance: {$set: golferThreeBalance}}),
   		golferFour: update(this.state.golferFour, {balance: {$set: golferFourBalance}})
 		})
 	}
