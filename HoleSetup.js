@@ -86,23 +86,21 @@ export default class HoleSetup extends Component {
 	}
 
 	handlePartnerOne() {
-		let teamWolf = [...this.state.teamWolf, this.state.currentWolf];
+		let teamWolf ;
 		let teamSheep;
 		//Check currentWolf, then assign teams as appropriate
 		this.state.currentWolf === this.state.golferOne.name ? (
-			//currentWolf is golferOne, this expression assigns wolf and golferTwo to teamWolf.
-			teamWolf = [...teamWolf, this.state.currentWolf, this.state.golferTwo.name],
-			//Add remaining players to teamSheep array.
-			teamSheep = [...teamSheep, this.state.golferThree.name, this.state.golferFour.name]
+			teamWolf = [...this.state.teamWolf, this.state.currentWolf, this.state.golferTwo.name],
+			teamSheep= [...this.state.teamSheep, this.state.golferThree.name, this.state.golferFour.name]
 		) : this.state.currentWolf === this.state.golferTwo.name ? (
-			teamWolf = [...teamWolf, this.state.currentWolf, this.state.golferThree.name],
-			teamSheep = [...teamSheep, this.state.golferOne.name, this.state.golferFour.name]
+			teamWolf = [...this.state.teamWolf, this.state.currentWolf, this.state.golferThree.name],
+			teamSheep = [...this.state.teamSheep, this.state.golferOne.name, this.state.golferFour.name]
 		) : this.state.currentWolf === this.state.golferThree.name ? (
-			teamWolf = [...teamWolf, this.state.currentWolf, this.state.golferFour.name],
-			teamSheep = [...teamSheep, this.state.golferOne.name, this.state.golferTwo.name]
+			teamWolf = [...this.state.teamWolf, this.state.currentWolf, this.state.golferFour.name],
+			teamSheep = [...this.state.teamSheep, this.state.golferOne.name, this.state.golferTwo.name]
 		) : this.state.currentWolf === this.state.golferFour.name ? (
-			teamWolf = [...teamWolf, this.state.currentWolf, this.state.golferOne.name],
-			teamSheep = [...teamSheep, this.state.golferTwo.name, this.state.golferThree.name]
+			teamWolf = [...this.state.teamWolf, this.state.currentWolf, this.state.golferOne.name],
+			teamSheep = [...this.state.teamSheep, this.state.golferTwo.name, this.state.golferThree.name]
 		) : null ;
 		this.setState({
 			teamWolf : teamWolf,
