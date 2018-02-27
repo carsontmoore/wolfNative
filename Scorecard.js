@@ -20,7 +20,8 @@ export default class Scorecard extends Component {
 			betUnit: this.props.navigation.state.params.betUnit,
 			rabbitUnit : this.props.navigation.state.params.rabbitUnit,
 			snakeUnit: this.props.navigation.state.params.snakeUnit,
-			initialBetUnit: this.props.navigation.state.params.initialBetUnit
+			initialBetUnit: this.props.navigation.state.params.initialBetUnit,
+			holePushCounter: this.props.navigation.state.params.holePushCounter
 		}
 	}
 
@@ -57,7 +58,8 @@ export default class Scorecard extends Component {
 						betUnit : this.state.betUnit,
 						currentHole: this.state.currentHole,
 						currentWolf: this.state.currentWolf,
-						initialBetUnit: this.state.initialBetUnit
+						initialBetUnit: this.state.initialBetUnit,
+						holePushCounter: this.state.holePushCounter
 					})}>
 					Play Hole {this.state.currentHole}
 				</Button>

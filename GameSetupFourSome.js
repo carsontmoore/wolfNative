@@ -163,7 +163,8 @@ export default class GameSetupFourSome extends Component {
 								snakeUnit: this.state.snakeUnit,
 								currentWolf: this.state.golferOne.name,
 								currentHole: 1,
-								initialBetUnit: this.state.initialBetUnit
+								initialBetUnit: this.state.initialBetUnit,
+								holePushCounter: 0
 							})}>
 							Start Round!
 						</Button>

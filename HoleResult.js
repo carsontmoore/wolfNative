@@ -34,14 +34,17 @@ export default class HoleResult extends Component {
 			currentHole : this.props.navigation.state.params.currentHole,
 			currentWolf : this.props.navigation.state.params.currentWolf,
       initialBetUnit: this.props.navigation.state.params.initialBetUnit,
+      holePushCounter: this.props.navigation.state.params.holePushCounter,
 			teamWolf : this.props.navigation.state.params.teamWolf,
-			teamSheep : this.props.navigation.state.params.teamSheep,
+			teamSheep : this.props.navigation.state.params.teamSheep
 		}
 		this.handleWolfWin = this.handleWolfWin.bind(this);
 		this.handleSheepWin = this.handleSheepWin.bind(this);
 		this.incrementHole = this.incrementHole.bind(this);
 		this.updateNextWolf = this.updateNextWolf.bind(this);
     this.resetBetUnit = this.resetBetUnit.bind(this);
+    this.handleHolePush = this.handleHolePush.bind(this);
+    this.resetHolePushCounter = this.resetHolePushCounter.bind(this);
 	}
 
 	static navigationOptions = ({navigation}) => ({
@@ -224,24 +227,43 @@ export default class HoleResult extends Component {
 		})
 	}
 
-	incrementHole() {
-		let currentHole = this.state.currentHole;
-		currentHole ++ ;
-		this.setState({currentHole : currentHole})
-	}
+  handleHolePush() {
+    let betUnit;
+    let initialBetUnit = this.state.initialBetUnit;
+    let holePushCounter = this.state.holePushCounter;
+    holePushCounter = holePushCounter + 1;
+    console.log("holePushCounter after increment: ",holePushCounter)
+    betUnit = initialBetUnit * (holePushCounter+1);
+    console.log("betUnit before setState upadate: ",betUnit)
+    this.setState({
+      betUnit: betUnit,
+      holePushCounter: holePushCounter
+    });
+  }
+
+  incrementHole() {
+    let currentHole = this.state.currentHole;
+    currentHole ++ ;
+    this.setState({currentHole : currentHole})
+  }
 
   resetBetUnit() {
     let initialBetUnit = this.state.initialBetUnit;
     this.setState({betUnit : initialBetUnit})
   }
 
+  resetHolePushCounter() {
+    let holePushCounter;
+    holePushCounter = 0;
+    this.setState({holePushCounter: holePushCounter});
+  }
+
+
 	updateNextWolf() {
 		let newWolf;
 		let currentWolf = this.state.currentWolf;
 		currentWolf === this.state.golferOne.name ? newWolf = this.state.golferTwo.name : currentWolf === this.state.golferTwo.name ? newWolf = this.state.golferThree.name : currentWolf === this.state.golferThree.name ? newWolf = this.state.golferFour.name : currentWolf === this.state.golferFour.name ? newWolf = this.state.golferOne.name : null ;
-		this.setState({
-			currentWolf : newWolf,
-		})
+		this.setState({currentWolf : newWolf})
 	}
 
 	render(){
@@ -258,7 +280,8 @@ export default class HoleResult extends Component {
 					this.handleWolfWin(),
 					this.incrementHole(),
 					this.updateNextWolf(),
-          this.resetBetUnit()
+          this.resetBetUnit(),
+          this.resetHolePushCounter()
 				}}>
 					Team Wolf Wins!
 				</Button>
@@ -270,13 +293,19 @@ export default class HoleResult extends Component {
 					this.handleSheepWin(),
 					this.incrementHole(),
           this.updateNextWolf(),
-          this.resetBetUnit()
+          this.resetBetUnit(),
+          this.resetHolePushCounter()
 				}}>
 					Team Sheep Wins!
 				</Button>
         <Button
         style={styles.buttonStyle}
-        textStyle={styles.buttonTextStyle}>
+        textStyle={styles.buttonTextStyle}
+        onPress={() => {
+          this.handleHolePush(),
+          this.incrementHole(),
+          this.updateNextWolf()
+        }}>
           Push - bet carries over!
         </Button>
 				<Button
@@ -307,7 +336,8 @@ export default class HoleResult extends Component {
 							snakeUnit: this.state.snakeUnit,
 							teamSheep: this.state.teamSheep,
 							teamWolf:this.state.teamWolf,
-              initialBetUnit: this.state.initialBetUnit
+              initialBetUnit: this.state.initialBetUnit,
+              holePushCounter: this.state.holePushCounter
 						})
 					}}>
 						Advance to hole {this.state.currentHole}

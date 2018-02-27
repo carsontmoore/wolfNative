@@ -33,6 +33,7 @@ export default class HoleSetup extends Component {
 			currentHole : this.props.navigation.state.params.currentHole,
 			currentWolf: this.props.navigation.state.params.currentWolf,
 			initialBetUnit: this.props.navigation.state.params.initialBetUnit,
+			holePushCounter: this.props.navigation.state.params.holePushCounter,
 			teamWolf: [],
 			teamSheep: [],
 		}
@@ -243,7 +244,8 @@ export default class HoleSetup extends Component {
 							currentWolf: this.state.currentWolf,
 							teamWolf : this.state.teamWolf,
 							teamSheep : this.state.teamSheep,
-							initialBetUnit: this.state.initialBetUnit
+							initialBetUnit: this.state.initialBetUnit,
+							holePushCounter: this.state.holePushCounter
 						})
 				}}>
 					Who wins the hole?
