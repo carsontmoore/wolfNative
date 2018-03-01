@@ -1,6 +1,7 @@
 'use-strict';
 import React, { Component } from 'react';
 import {
+  Alert,
   AppRegistry,
   StyleSheet,
   Text,
@@ -45,6 +46,7 @@ export default class HoleResult extends Component {
     this.resetBetUnit = this.resetBetUnit.bind(this);
     this.handleHolePush = this.handleHolePush.bind(this);
     this.resetHolePushCounter = this.resetHolePushCounter.bind(this);
+    this.checkHoleNumber = this.checkHoleNumber.bind(this);
 	}
 
 	static navigationOptions = ({navigation}) => ({
@@ -253,13 +255,46 @@ export default class HoleResult extends Component {
   }
 
   resetHolePushCounter() {
-    let holePushCounter;
-    holePushCounter = 0;
+    let holePushCounter = 0;
     this.setState({holePushCounter: holePushCounter});
   }
 
+  checkHoleNumber() {
+    let currentHole = this.state.currentHole;
+    let balances = [this.state.golferOne.balance, this.state.golferTwo.balance, this.state.golferThree.balance, this.state.golferFour.balance];
+    let golfers = [this.state.golferOne, this.state.golferTwo, this.state.golferThree, this.state.golferFour];
+    let lastPlace = [];
+    let lowestBalance;
+    if(currentHole === 17 || 18) {
+      lowestBalance = Math.min(...balances);
+      for(var i = 0; i < golfers.length; i++) {
+        let golferName = golfers[i]['name'];
+        if(golfers[i]['balance'] === lowestBalance) {
+          lastPlace.push(golferName);
+        }
+      }
+      if(lastPlace.length === 1) {
+        this.setState({currentWolf : lastPlace[0]})
+      }
+      if(lastPlace.length === 2) {
+        let loserOne = lastPlace[0];
+        let loserTwo = lastPlace[1];
+        //engage alert / modal to determine wolf for hole 17
+        Alert.alert(
+          '2 players tied for last!',
+          'Please choose the wolf for the next hole:',
+          [
+            {text: loserOne, onPress: () => this.setState({currentWolf : loserOne})},
+            {text: loserTwo, onPress: () => this.setState({currentWolf : loserTwo})},
+          ],
+          { cancelable: false }
+        )
+      }
+    }
+  }
 
-	updateNextWolf() {
+
+  updateNextWolf() {
 		let newWolf;
 		let currentWolf = this.state.currentWolf;
 		currentWolf === this.state.golferOne.name ? newWolf = this.state.golferTwo.name : currentWolf === this.state.golferTwo.name ? newWolf = this.state.golferThree.name : currentWolf === this.state.golferThree.name ? newWolf = this.state.golferFour.name : currentWolf === this.state.golferFour.name ? newWolf = this.state.golferOne.name : null ;
@@ -281,7 +316,8 @@ export default class HoleResult extends Component {
 					this.incrementHole(),
 					this.updateNextWolf(),
           this.resetBetUnit(),
-          this.resetHolePushCounter()
+          this.resetHolePushCounter(),
+          this.checkHoleNumber()
 				}}>
 					Team Wolf Wins!
 				</Button>
@@ -294,7 +330,8 @@ export default class HoleResult extends Component {
 					this.incrementHole(),
           this.updateNextWolf(),
           this.resetBetUnit(),
-          this.resetHolePushCounter()
+          this.resetHolePushCounter(),
+          this.checkHoleNumber()
 				}}>
 					Team Sheep Wins!
 				</Button>
@@ -304,7 +341,8 @@ export default class HoleResult extends Component {
         onPress={() => {
           this.handleHolePush(),
           this.incrementHole(),
-          this.updateNextWolf()
+          this.updateNextWolf(),
+          this.checkHoleNumber()
         }}>
           Push - bet carries over!
         </Button>

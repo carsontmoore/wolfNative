@@ -4,8 +4,8 @@ import { AppRegistry, FlatList, Modal, ScrollView, Slider, StyleSheet, Text, Vie
 import { StackNavigator } from 'react-navigation';
 import Button from 'apsl-react-native-button';
 import { DatePickerField, Form, InputField, LinkField, PickerField, Separator, SwitchField,TimePickerField } from 'react-native-form-generator';
-import HoleSetup from './HoleSetup';
-import HoleInstance from './HoleInstance';
+
+
 
 export default class Scorecard extends Component {
 	constructor(props) {
@@ -29,10 +29,6 @@ export default class Scorecard extends Component {
 		title: 'Scorecard',
 		headerTintColor: 'darkgreen',
 	})
-
-	// componentWillReceiveProps(nextProps) {
-
-	// }
 
 	render() {
 		const { params } = this.props.navigation.state;
