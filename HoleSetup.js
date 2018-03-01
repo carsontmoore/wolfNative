@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Slider
  } from 'react-native';
 import { StackNavigator }  from 'react-navigation';
 import Button from'apsl-react-native-button';
@@ -154,16 +155,9 @@ export default class HoleSetup extends Component {
 		});
 	}
 
-
-
-	//  componentWillReceiveProps() {
-	// 	// this is where we should reset state of current wolf and current hole
-	// }
-
 	render() {
 		const { navigate } = this.props.navigation;
 		const { params } = this.props.navigation.state;
-		console.log('Setup State: ', this.state);
 		return (
 			<View>
 				<Text style={styles.textStyle}>

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity
  } from 'react-native';
 import { StackNavigator }  from 'react-navigation';
 import Button from'apsl-react-native-button';
@@ -20,6 +21,7 @@ import {
 	SwitchField,
 } from 'react-native-form-generator';
 import update from 'immutability-helper';
+import Modal from 'react-native-simple-modal';
 
 export default class HoleResult extends Component {
 	constructor(props){
@@ -37,7 +39,8 @@ export default class HoleResult extends Component {
       initialBetUnit: this.props.navigation.state.params.initialBetUnit,
       holePushCounter: this.props.navigation.state.params.holePushCounter,
 			teamWolf : this.props.navigation.state.params.teamWolf,
-			teamSheep : this.props.navigation.state.params.teamSheep
+			teamSheep : this.props.navigation.state.params.teamSheep,
+      openModal : false
 		}
 		this.handleWolfWin = this.handleWolfWin.bind(this);
 		this.handleSheepWin = this.handleSheepWin.bind(this);
@@ -274,7 +277,17 @@ export default class HoleResult extends Component {
         }
       }
       if(lastPlace.length === 1) {
-        this.setState({currentWolf : lastPlace[0]})
+        let loser = lastPlace[0];
+        this.setState({currentWolf : loser})
+        Alert.alert(
+          loser+' is the wolf for the next hole!',
+          'Does '+loser+' want to up the stakes?',
+          [
+            {text: "Yes - change the bet!", onPress: () => this.setState({openModal : true})},
+            {text: "No - the next hole will be worth "+this.state.betUnit, onPress: () => this.setState({openModal : false}), style: 'cancel'}
+          ],
+          { cancelable: false }
+        )
       }
       if(lastPlace.length === 2) {
         let loserOne = lastPlace[0];
@@ -289,10 +302,19 @@ export default class HoleResult extends Component {
           ],
           { cancelable: false }
         )
+        let loser = this.state.currentWolf;
+        Alert.alert(
+          loser+' is the wolf for the next hole!',
+          'Does '+loser+' want to up the stakes?',
+          [
+            {text: "Yes - change the bet!", onPress: () => this.setState({openModal : true})},
+            {text: "No - the next hole will be worth "+this.state.betUnit, onPress: () => this.setState({openModal : false}), style: 'cancel'}
+          ],
+          { cancelable: false }
+        )
       }
     }
   }
-
 
   updateNextWolf() {
 		let newWolf;
@@ -380,6 +402,31 @@ export default class HoleResult extends Component {
 					}}>
 						Advance to hole {this.state.currentHole}
 				</Button>
+        <Modal
+          open={this.state.openModal}
+          style={{ alignItems: 'center' }}>
+          <View>
+            <Text style={styles.textStyle}>
+              {this.state.currentWolf} sets the stakes!
+            </Text>
+            <Slider
+            style={styles.sliderStyle}
+            maximumTrackTintColor={'darkgrey'}
+            minimumTrackTintColor={'darkgreen'}
+            maximumValue={(this.state.betUnit*5)}
+            minimum value={this.state.initialBetUnit}
+            step={1}
+            value={this.state.betUnit}
+            onValueChange={(betUnit) => this.setState({betUnit: betUnit})}
+            onSlidingComplete={(betUnit) => this.setState({betUnit: betUnit}) } />
+            <TouchableOpacity
+              onPress={() => this.setState({openModal : false})}>
+              <Text style={styles.textStyle}>
+                Close
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
 			</View>
 		)
 	}
@@ -404,4 +451,8 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		marginTop: 10
 	},
+  sliderStyle: {
+    padding: 5,
+    flex: 1,
+  },
 })
