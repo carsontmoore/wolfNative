@@ -216,7 +216,7 @@ export default class FinalHoleSetup extends Component {
           style={styles.sliderStyle}
           maximumTrackTintColor={'darkgrey'}
           minimumTrackTintColor={'darkgreen'}
-          maximumValue={this.state.betUnit*5}
+          maximumValue={20}
           minimum value={1}
           step={1}
           value={this.state.betUnit}
