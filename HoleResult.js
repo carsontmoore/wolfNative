@@ -40,6 +40,12 @@ export default class HoleResult extends Component {
       holePushCounter: this.props.navigation.state.params.holePushCounter,
 			teamWolf : this.props.navigation.state.params.teamWolf,
 			teamSheep : this.props.navigation.state.params.teamSheep,
+      teamWolfDisabled : false,
+      teamSheepDisabled : false,
+      pushBetDisabled : false,
+      addRabbitsDisabled : true,
+      addSnakesDisabled : true,
+      advanceHoleDisabled : true
 		}
 		this.handleWolfWin = this.handleWolfWin.bind(this);
 		this.handleSheepWin = this.handleSheepWin.bind(this);
@@ -139,7 +145,13 @@ export default class HoleResult extends Component {
       golferOne: update(this.state.golferOne, {balance: {$set: golferOneBalance}}),
       golferTwo: update(this.state.golferTwo, {balance: {$set: golferTwoBalance}}),
       golferThree: update(this.state.golferThree, {balance: {$set: golferThreeBalance}}),
-      golferFour: update(this.state.golferFour, {balance: {$set: golferFourBalance}})
+      golferFour: update(this.state.golferFour, {balance: {$set: golferFourBalance}}),
+      teamWolfDisabled : true,
+      teamSheepDisabled : true,
+      pushBetDisabled : true,
+      addRabbitsDisabled : false,
+      addSnakesDisabled : false,
+      advanceHoleDisabled : false
     })
 	}
 
@@ -226,7 +238,13 @@ export default class HoleResult extends Component {
       golferOne: update(this.state.golferOne, {balance: {$set: golferOneBalance}}),
       golferTwo: update(this.state.golferTwo, {balance: {$set: golferTwoBalance}}),
       golferThree: update(this.state.golferThree, {balance: {$set: golferThreeBalance}}),
-  		golferFour: update(this.state.golferFour, {balance: {$set: golferFourBalance}})
+  		golferFour: update(this.state.golferFour, {balance: {$set: golferFourBalance}}),
+      teamWolfDisabled : true,
+      teamSheepDisabled : true,
+      pushBetDisabled : true,
+      addRabbitsDisabled : false,
+      addSnakesDisabled : false,
+      advanceHoleDisabled : false
 		})
 	}
 
@@ -235,12 +253,16 @@ export default class HoleResult extends Component {
     let initialBetUnit = this.state.initialBetUnit;
     let holePushCounter = this.state.holePushCounter;
     holePushCounter = holePushCounter + 1;
-    console.log("holePushCounter after increment: ",holePushCounter)
     betUnit = initialBetUnit * (holePushCounter+1);
-    console.log("betUnit before setState upadate: ",betUnit)
     this.setState({
       betUnit: betUnit,
-      holePushCounter: holePushCounter
+      holePushCounter: holePushCounter,
+      teamWolfDisabled : true,
+      teamSheepDisabled : true,
+      pushBetDisabled : true,
+      addRabbitsDisabled : false,
+      addSnakesDisabled : false,
+      advanceHoleDisabled : false
     });
   }
 
@@ -330,6 +352,8 @@ export default class HoleResult extends Component {
 				style={styles.buttonStyle}
 				textStyle={styles.buttonTextStyle}
 				ref="wolfWinsButton"
+        isDisabled={this.state.teamWolfDisabled}
+        disabledStyle={styles.disabledButtonStyle}
 				onPress={() => {
 					this.handleWolfWin(),
 					this.incrementHole(),
@@ -343,6 +367,8 @@ export default class HoleResult extends Component {
 				style={styles.buttonStyle}
 				textStyle={styles.buttonTextStyle}
 				ref="sheepWinsButtons"
+        isDisabled={this.state.teamSheepDisabled}
+        disabledStyle={styles.disabledButtonStyle}
 				onPress={() => {
 					this.handleSheepWin(),
 					this.incrementHole(),
@@ -355,6 +381,8 @@ export default class HoleResult extends Component {
         <Button
         style={styles.buttonStyle}
         textStyle={styles.buttonTextStyle}
+        isDisabled={this.state.pushBetDisabled}
+        disabledStyle={styles.disabledButtonStyle}
         onPress={() => {
           this.handleHolePush(),
           this.incrementHole(),
@@ -364,12 +392,16 @@ export default class HoleResult extends Component {
         </Button>
 				<Button
 				style={styles.buttonStyle}
-				textStyle={styles.buttonTextStyle}>
+				textStyle={styles.buttonTextStyle}
+        isDisabled={this.state.addRabbitsDisabled}
+        disabledStyle={styles.disabledButtonStyle}>
 					Add Rabbits
 				</Button>
 				<Button
 				style={styles.buttonStyle}
-				textStyle={styles.buttonTextStyle}>
+				textStyle={styles.buttonTextStyle}
+        isDisabled={this.state.addSnakesDisabled}
+        disabledStyle={styles.disabledButtonStyle}>
 					Add Snakes
 				</Button>
 				<Text>{this.state.currentWolf} is the new Wolf!</Text>
@@ -377,6 +409,8 @@ export default class HoleResult extends Component {
 				<Button
 					style={styles.buttonStyle}
 					textStyle={styles.buttonTextStyle}
+          isDisabled={this.state.advanceHoleDisabled}
+          disabledStyle={styles.disabledButtonStyle}
 					onPress={() => {
 						navigate('Scorecard', {
 							golferOne: this.state.golferOne,
@@ -420,4 +454,10 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		marginTop: 10
 	},
+  disabledButtonStyle: {
+  backgroundColor: 'darkgrey',
+  padding: 5,
+  marginTop: 10
+},
+
 })

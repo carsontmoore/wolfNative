@@ -43,7 +43,8 @@ export default class FinalHoleSetup extends Component {
       partnerThreeDisabled: false,
       wolfDisabled: false,
       loneWolfDisabled: false,
-      blindWolfDisabled: false
+      blindWolfDisabled: false,
+      whoWinsDisabled: true
     }
     this.handleWolf = this.handleWolf.bind(this);
     this.handleBlindWolf = this.handleBlindWolf.bind(this);
@@ -70,7 +71,8 @@ export default class FinalHoleSetup extends Component {
       partnerTwoDisabled : true,
       partnerThreeDisabled : true,
       loneWolfDisabled : true,
-      blindWolfDisabled : true
+      blindWolfDisabled : true,
+      whoWinsDisabled : false
     });
   }
 
@@ -88,7 +90,8 @@ export default class FinalHoleSetup extends Component {
       partnerTwoDisabled : true,
       partnerThreeDisabled : true,
       wolfDisabled : true,
-      blindWolfDisabled : true
+      blindWolfDisabled : true,
+      whoWinsDisabled : false
     });
   }
 
@@ -106,7 +109,8 @@ export default class FinalHoleSetup extends Component {
       partnerTwoDisabled : true,
       partnerThreeDisabled : true,
       wolfDisabled : true,
-      loneWolfDisabled : true
+      loneWolfDisabled : true,
+      whoWinsDisabled : false
     });
   }
 
@@ -134,7 +138,8 @@ export default class FinalHoleSetup extends Component {
       partnerThreeDisabled : true,
       wolfDisabled : true,
       loneWolfDisabled : true,
-      blindWolfDisabled : true
+      blindWolfDisabled : true,
+      whoWinsDisabled : false
     });
   }
 
@@ -161,7 +166,8 @@ export default class FinalHoleSetup extends Component {
       partnerThreeDisabled : true,
       wolfDisabled : true,
       loneWolfDisabled : true,
-      blindWolfDisabled : true
+      blindWolfDisabled : true,
+      whoWinsDisabled : false
     });
   }
 
@@ -188,7 +194,8 @@ export default class FinalHoleSetup extends Component {
       partnerTwoDisabled : true,
       wolfDisabled : true,
       loneWolfDisabled : true,
-      blindWolfDisabled : true
+      blindWolfDisabled : true,
+      whoWinsDisabled : false
     });
   }
 
@@ -214,14 +221,11 @@ export default class FinalHoleSetup extends Component {
           step={1}
           value={this.state.betUnit}
           onValueChange={(newBet) => this.setState({betUnit: newBet})}
-          onSlidingComplete={(newBet) => this.setState({betUnit: newBet}),
-            Alert.alert(
-              wolf+' has changed the bet!',
-              'This hole is now worth '+bet,
-              [{text: 'OK'}],
-              {cancelable: false}
-            )
-        }/>
+          onSlidingComplete={(newBet) => this.setState({betUnit: newBet})}
+        />
+        <Text>
+          The starting bet is now: {this.state.betUnit}
+        </Text>
         <Button
           style={styles.buttonStyle}
           textStyle={styles.buttonTextStyle}
@@ -296,6 +300,8 @@ export default class FinalHoleSetup extends Component {
         <Button
         style={styles.buttonStyle}
         textStyle={styles.buttonTextStyle}
+        isDisabled={this.state.whoWinsDisabled}
+        disabledStyle={styles.disabledButtonStyle}
         onPress={() => {
           navigate('HoleResult', {
               golferOne: this.state.golferOne,
@@ -340,7 +346,12 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   sliderStyle: {
-    padding: 5,
+    padding: 8,
     flex: 1,
+  },
+  disabledButtonStyle: {
+    backgroundColor: 'darkgrey',
+    padding: 5,
+    marginTop: 10
   },
 })

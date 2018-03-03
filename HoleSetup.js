@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Slider
+  Slider,
+  Alert
  } from 'react-native';
 import { StackNavigator }  from 'react-navigation';
 import Button from'apsl-react-native-button';
@@ -42,7 +43,8 @@ export default class HoleSetup extends Component {
 			partnerThreeDisabled: false,
 			wolfDisabled: false,
 			loneWolfDisabled: false,
-			blindWolfDisabled: false
+			blindWolfDisabled: false,
+			whoWinsDisabled: true
 		}
 		this.handleWolf = this.handleWolf.bind(this);
 		this.handleBlindWolf = this.handleBlindWolf.bind(this);
@@ -69,7 +71,9 @@ export default class HoleSetup extends Component {
 			partnerTwoDisabled : true,
 			partnerThreeDisabled : true,
 			loneWolfDisabled : true,
-			blindWolfDisabled : true
+			blindWolfDisabled : true,
+			wolfDisabled : true,
+			whoWinsDisabled : false
 		});
 	}
 
@@ -87,7 +91,9 @@ export default class HoleSetup extends Component {
 			partnerTwoDisabled : true,
 			partnerThreeDisabled : true,
 			wolfDisabled : true,
-			blindWolfDisabled : true
+			loneWolfDisabled : true,
+			blindWolfDisabled : true,
+			whoWinsDisabled : false
 		});
 	}
 
@@ -105,7 +111,9 @@ export default class HoleSetup extends Component {
 			partnerTwoDisabled : true,
 			partnerThreeDisabled : true,
 			wolfDisabled : true,
-			loneWolfDisabled : true
+			loneWolfDisabled : true,
+			blindWolfDisabled : true,
+			whoWinsDisabled : false
 		});
 	}
 
@@ -129,11 +137,13 @@ export default class HoleSetup extends Component {
 		this.setState({
 			teamWolf : teamWolf,
 			teamSheep : teamSheep,
+			partnerOneDisabled : true,
 			partnerTwoDisabled : true,
 			partnerThreeDisabled : true,
 			wolfDisabled : true,
 			loneWolfDisabled : true,
-			blindWolfDisabled : true
+			blindWolfDisabled : true,
+			whoWinsDisabled : false
 		});
 	}
 
@@ -157,10 +167,12 @@ export default class HoleSetup extends Component {
 			teamWolf : teamWolf,
 			teamSheep: teamSheep,
 			partnerOneDisabled : true,
+			partnerTwoDisabled : true,
 			partnerThreeDisabled : true,
 			wolfDisabled : true,
 			loneWolfDisabled : true,
-			blindWolfDisabled : true
+			blindWolfDisabled : true,
+			whoWinsDisabled : false
 		});
 	}
 
@@ -185,9 +197,11 @@ export default class HoleSetup extends Component {
 			teamSheep : teamSheep,
 			partnerOneDisabled : true,
 			partnerTwoDisabled : true,
+			partnerThreeDisabled : true,
 			wolfDisabled : true,
 			loneWolfDisabled : true,
-			blindWolfDisabled : true
+			blindWolfDisabled : true,
+			whoWinsDisabled : false
 		});
 	}
 
@@ -273,6 +287,8 @@ export default class HoleSetup extends Component {
 				<Button
 				style={styles.buttonStyle}
 				textStyle={styles.buttonTextStyle}
+				isDisabled={this.state.whoWinsDisabled}
+				disabledStyle={this.state.disabledButtonStyle}
 				onPress={() => {
 					navigate('HoleResult', {
 							golferOne: this.state.golferOne,
@@ -317,9 +333,8 @@ const styles = StyleSheet.create({
 		marginTop: 10
 	},
 	disabledButtonStyle: {
-		color: 'darkgrey',
+		backgroundColor: 'darkgrey',
 		padding: 5,
-		fontSize: 16,
 		marginTop: 10
 	},
 
