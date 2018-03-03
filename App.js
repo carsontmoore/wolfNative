@@ -16,6 +16,7 @@ import GameSetupThreeSome from './GameSetupThreeSome';
 import Scorecard from './Scorecard';
 import HoleSetup from './HoleSetup';
 import HoleResult from './HoleResult';
+import FinalHoleSetup from './FinalHoleSetup';
 
 
 class HomeScreen extends Component {
@@ -66,6 +67,7 @@ export const WolfNative = StackNavigator({
 	Scorecard: {screen: Scorecard},
 	HoleSetup: {screen: HoleSetup},
 	HoleResult: {screen: HoleResult},
+  FinalHoleSetup: {screen: FinalHoleSetup}
 
 });
 

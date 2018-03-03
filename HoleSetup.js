@@ -24,19 +24,25 @@ export default class HoleSetup extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			golferOne : this.props.navigation.state.params.golferOne,
-			golferTwo : this.props.navigation.state.params.golferTwo,
-			golferThree : this.props.navigation.state.params.golferThree,
-			golferFour : this.props.navigation.state.params.golferFour,
-			betUnit : this.props.navigation.state.params.betUnit,
-			rabbitUnit : this.props.navigation.state.params.rabbitUnit,
-			snakeUnit : this.props.navigation.state.params.snakeUnit,
-			currentHole : this.props.navigation.state.params.currentHole,
+			golferOne: this.props.navigation.state.params.golferOne,
+			golferTwo: this.props.navigation.state.params.golferTwo,
+			golferThree: this.props.navigation.state.params.golferThree,
+			golferFour: this.props.navigation.state.params.golferFour,
+			betUnit: this.props.navigation.state.params.betUnit,
+			rabbitUnit: this.props.navigation.state.params.rabbitUnit,
+			snakeUnit: this.props.navigation.state.params.snakeUnit,
+			currentHole: this.props.navigation.state.params.currentHole,
 			currentWolf: this.props.navigation.state.params.currentWolf,
 			initialBetUnit: this.props.navigation.state.params.initialBetUnit,
 			holePushCounter: this.props.navigation.state.params.holePushCounter,
 			teamWolf: [],
 			teamSheep: [],
+			partnerOneDisabled: false,
+			partnerTwoDisabled: false,
+			partnerThreeDisabled: false,
+			wolfDisabled: false,
+			loneWolfDisabled: false,
+			blindWolfDisabled: false
 		}
 		this.handleWolf = this.handleWolf.bind(this);
 		this.handleBlindWolf = this.handleBlindWolf.bind(this);
@@ -58,7 +64,12 @@ export default class HoleSetup extends Component {
 		this.state.currentWolf === this.state.golferOne.name ? teamSheep = [this.state.golferTwo.name, this.state.golferThree.name, this.state.golferFour.name] : this.state.currentWolf === this.state.golferTwo.name ? teamSheep = [this.state.golferOne.name, this.state.golferThree.name, this.state.golferFour.name] : this.state.currentWolf === this.state.golferThree.name ? teamSheep = [this.state.golferOne.name, this.state.golferTwo.name, this.state.golferFour.name] : this.state.currentWolf === this.state.golferFour.name ? teamSheep = [this.state.golferOne.name, this.state.golferTwo.name, this.state.golferThree.name] : null ;
 		this.setState({
 			teamWolf : teamWolf,
-			teamSheep : teamSheep
+			teamSheep : teamSheep,
+			partnerOneDisabled : true,
+			partnerTwoDisabled : true,
+			partnerThreeDisabled : true,
+			loneWolfDisabled : true,
+			blindWolfDisabled : true
 		});
 	}
 
@@ -71,7 +82,12 @@ export default class HoleSetup extends Component {
 		this.setState({
 			betUnit : betUnit,
 			teamWolf : teamWolf,
-			teamSheep : teamSheep
+			teamSheep : teamSheep,
+			partnerOneDisabled : true,
+			partnerTwoDisabled : true,
+			partnerThreeDisabled : true,
+			wolfDisabled : true,
+			blindWolfDisabled : true
 		});
 	}
 
@@ -84,7 +100,12 @@ export default class HoleSetup extends Component {
 		this.setState({
 			betUnit : betUnit,
 			teamWolf : teamWolf,
-			teamSheep : teamSheep
+			teamSheep : teamSheep,
+			partnerOneDisabled : true,
+			partnerTwoDisabled : true,
+			partnerThreeDisabled : true,
+			wolfDisabled : true,
+			loneWolfDisabled : true
 		});
 	}
 
@@ -107,7 +128,12 @@ export default class HoleSetup extends Component {
 		) : null ;
 		this.setState({
 			teamWolf : teamWolf,
-			teamSheep : teamSheep
+			teamSheep : teamSheep,
+			partnerTwoDisabled : true,
+			partnerThreeDisabled : true,
+			wolfDisabled : true,
+			loneWolfDisabled : true,
+			blindWolfDisabled : true
 		});
 	}
 
@@ -129,7 +155,12 @@ export default class HoleSetup extends Component {
 		) : null ;
 		this.setState({
 			teamWolf : teamWolf,
-			teamSheep: teamSheep
+			teamSheep: teamSheep,
+			partnerOneDisabled : true,
+			partnerThreeDisabled : true,
+			wolfDisabled : true,
+			loneWolfDisabled : true,
+			blindWolfDisabled : true
 		});
 	}
 
@@ -151,7 +182,12 @@ export default class HoleSetup extends Component {
 		) : null ;
 		this.setState({
 			teamWolf : teamWolf,
-			teamSheep : teamSheep
+			teamSheep : teamSheep,
+			partnerOneDisabled : true,
+			partnerTwoDisabled : true,
+			wolfDisabled : true,
+			loneWolfDisabled : true,
+			blindWolfDisabled : true
 		});
 	}
 
@@ -167,15 +203,19 @@ export default class HoleSetup extends Component {
 					style={styles.buttonStyle}
 					textStyle={styles.buttonTextStyle}
 					ref="wolfButton"
+					isDisabled={this.state.wolfDisabled}
+					disabledStyle={styles.disabledButtonStyle}
 					onPress={() => {
 						this.handleWolf()
-					}}>
+				}}>
 					Wolf
 				</Button>
 				<Button
 					style={styles.buttonStyle}
 					textStyle={styles.buttonTextStyle}
 					ref="loneWolfButton"
+					isDisabled={this.state.loneWolfDisabled}
+					disabledStyle={styles.disabledButtonStyle}
 					onPress={() => {
 						this.handleLoneWolf()
 					}}>
@@ -185,6 +225,8 @@ export default class HoleSetup extends Component {
 					style={styles.buttonStyle}
 					textStyle={styles.buttonTextStyle}
 					ref="blindWolfButton"
+					isDisabled={this.state.blindWolfDisabled}
+					disabledStyle={styles.disabledButtonStyle}
 					onPress={() => {
 						this.handleBlindWolf()
 				}}>
@@ -197,6 +239,8 @@ export default class HoleSetup extends Component {
 					style={styles.buttonStyle}
 					textStyle={styles.buttonTextStyle}
 					ref="partnerOne"
+					isDisabled={this.state.partnerOneDisabled}
+					disabledStyle={styles.disabledButtonStyle}
 					onPress={() => {
 						this.handlePartnerOne()
 					}}>
@@ -206,6 +250,8 @@ export default class HoleSetup extends Component {
 					style={styles.buttonStyle}
 					textStyle={styles.buttonTextStyle}
 					ref="partnerTwo"
+					isDisabled={this.state.partnerTwoDisabled}
+					disabledStyle={styles.disabledButtonStyle}
 					onPress={() => {
 						this.handlePartnerTwo()
 					}}>
@@ -215,6 +261,8 @@ export default class HoleSetup extends Component {
 					style={styles.buttonStyle}
 					textStyle={styles.buttonTextStyle}
 					ref="partnerThree"
+					isDisabled={this.state.partnerThreeDisabled}
+					disabledStyle={styles.disabledButtonStyle}
 					onPress={() => {
 						this.handlePartnerThree()
 					}}>
@@ -268,4 +316,11 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		marginTop: 10
 	},
+	disabledButtonStyle: {
+		color: 'darkgrey',
+		padding: 5,
+		fontSize: 16,
+		marginTop: 10
+	},
+
 })
