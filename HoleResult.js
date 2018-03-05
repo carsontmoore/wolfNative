@@ -282,59 +282,6 @@ export default class HoleResult extends Component {
     this.setState({holePushCounter: holePushCounter});
   }
 
-  checkHoleNumber() {
-    let currentHole = this.state.currentHole;
-    let balances = [this.state.golferOne.balance, this.state.golferTwo.balance, this.state.golferThree.balance, this.state.golferFour.balance];
-    let golfers = [this.state.golferOne, this.state.golferTwo, this.state.golferThree, this.state.golferFour];
-    let lastPlace = [];
-    let lowestBalance;
-    if(currentHole === 17 || currentHole === 18) {
-      lowestBalance = Math.min(...balances);
-      for(var i = 0; i < golfers.length; i++) {
-        let golferName = golfers[i]['name'];
-        if(golfers[i]['balance'] === lowestBalance) {
-          lastPlace.push(golferName);
-        }
-      }
-      if(lastPlace.length === 1) {
-        let loser = lastPlace[0];
-        this.setState({currentWolf : loser})
-        Alert.alert(
-          loser+' is the wolf for the next hole!',
-          'Does '+loser+' want to up the stakes?',
-          [
-            {text: "Ok!"},
-          ],
-          { cancelable: false }
-        )
-      }
-      if(lastPlace.length === 2) {
-        let loserOne = lastPlace[0];
-        let loserTwo = lastPlace[1];
-        //engage alert / modal to determine wolf for hole 17
-        Alert.alert(
-          '2 players tied for last!',
-          'Please choose the wolf for the next hole:',
-          [
-            {text: loserOne, onPress: () => this.setState({currentWolf : loserOne})},
-            {text: loserTwo, onPress: () => this.setState({currentWolf : loserTwo})},
-          ],
-          { cancelable: false }
-        )
-        let loser = this.state.currentWolf;
-        Alert.alert(
-          loser+' is the wolf for the next hole!',
-          'Does '+loser+' want to up the stakes?',
-          [
-            {text: "Yes - change the bet!", onPress: () => this.setState({openModal : true})},
-            {text: "No - the next hole will be worth "+this.state.betUnit, onPress: () => this.setState({openModal : false}), style: 'cancel'}
-          ],
-          { cancelable: false }
-        )
-      }
-    }
-  }
-
   updateNextWolf() {
 		let newWolf;
 		let currentWolf = this.state.currentWolf;
@@ -406,6 +353,7 @@ export default class HoleResult extends Component {
 				</Button>
 				<Text>{this.state.currentWolf} is the new Wolf!</Text>
         <Text>The starting bet for the next hole is {this.state.betUnit}</Text>
+        {this.state.currentHole <= 18 ?
 				<Button
 					style={styles.buttonStyle}
 					textStyle={styles.buttonTextStyle}
@@ -430,6 +378,31 @@ export default class HoleResult extends Component {
 					}}>
 						Advance to hole {this.state.currentHole}
 				</Button>
+        :
+        <Button
+          style={styles.buttonStyle}
+          textStyle={styles.buttonTextStyle}
+          isDisabled={this.state.advanceHoleDisabled}
+          disabledStyle={styles.disabledButtonStyle}
+          onPress={() => {
+            navigate('FinalScorecard', {
+              golferOne: this.state.golferOne,
+              golferTwo: this.state.golferTwo,
+              golferThree: this.state.golferThree,
+              golferFour: this.state.golferFour,
+              currentHole: this.state.currentHole,
+              currentWolf: this.state.currentWolf,
+              betUnit: this.state.betUnit,
+              rabbitUnit: this.state.rabbitUnit,
+              snakeUnit: this.state.snakeUnit,
+              teamSheep: this.state.teamSheep,
+              teamWolf:this.state.teamWolf,
+              initialBetUnit: this.state.initialBetUnit,
+              holePushCounter: this.state.holePushCounter
+            })
+          }}>
+        </Button>
+        }
 			</View>
 		)
 	}
