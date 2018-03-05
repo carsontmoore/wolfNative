@@ -23,7 +23,6 @@ export default class FinalScorecard extends Component {
       holePushCounter: this.props.navigation.state.params.holePushCounter,
       modalVisible: false
     }
-    this.checkHoleNumber = this.checkHoleNumber.bind(this);
   }
 
   static navigationOptions = ({navigation}) => ({

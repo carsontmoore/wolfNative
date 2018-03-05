@@ -51,11 +51,7 @@ export default class Scorecard extends Component {
         let loser = lastPlace[0];
         this.setState({currentWolf : loser})
         Alert.alert(
-          loser+' is the wolf for the next hole!',
-          [
-            {text: "OK"},
-          ],
-          { cancelable: false }
+          loser + ' is the wolf for the next hole!'
         )
       }
       if(lastPlace.length === 2) {

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   Slider,
   Alert
  } from 'react-native';
@@ -202,10 +203,8 @@ export default class FinalHoleSetup extends Component {
   render() {
     const { navigate } = this.props.navigation;
     const { params } = this.props.navigation.state;
-    const { wolf } = this.state.currentWolf;
-    const { bet } = this.state.betUnit;
-
     return (
+      <ScrollView style={styles.scrollView}>
       <View>
         <Text style={styles.textStyle}>
           {this.state.currentWolf} is the Wolf!
@@ -323,11 +322,15 @@ export default class FinalHoleSetup extends Component {
           Who wins the hole?
         </Button>
       </View>
+      </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1
+  },
   buttonStyle: {
     marginTop: 10,
     marginBottom: 10,

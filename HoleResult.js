@@ -292,7 +292,6 @@ export default class HoleResult extends Component {
 	render(){
 		const { navigate } = this.props.navigation;
 		const { params } = this.props.navigation.state;
-		console.log("Result state: ", this.state)
 		return (
 			<View>
 				<Button
@@ -401,6 +400,7 @@ export default class HoleResult extends Component {
               holePushCounter: this.state.holePushCounter
             })
           }}>
+          Final scores!
         </Button>
         }
 			</View>
