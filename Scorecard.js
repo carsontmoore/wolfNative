@@ -4,6 +4,7 @@ import { Alert, AppRegistry, FlatList, Modal, ScrollView, Slider, StyleSheet, Te
 import { StackNavigator } from 'react-navigation';
 import Button from 'apsl-react-native-button';
 import { DatePickerField, Form, InputField, LinkField, PickerField, Separator, SwitchField,TimePickerField } from 'react-native-form-generator';
+import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 
 
@@ -90,21 +91,31 @@ export default class Scorecard extends Component {
 
 	componentWillMount() {
 		this.checkHoleNumber();
-		console.log("componentWillMount log")
-	}
+  }
 
 	render() {
 		const { params } = this.props.navigation.state;
 		const { navigate } = this.props.navigation;
 		console.log("SCORECARD PARAMS: ", params);
 		console.log("SCOREDCARD STATE: ", this.state);
+    const tableHead = ['Golfer', 'Snakes', 'Rabbits', 'Balance'];
+    const tableTitle = [this.state.golferOne.name, this.state.golferTwo.name, this.state.golferThree.name, this.state.golferFour.name];
+    const tableData = [
+      [this.state.golferOne.snakeCount, this.state.golferOne.rabbitCount, this.state.golferOne.balance],
+      [this.state.golferTwo.snakeCount, this.state.golferTwo.rabbitCount, this.state.golferTwo.balance],
+      [this.state.golferThree.snakeCount, this.state.golferThree.rabbitCount, this.state.golferThree.balance],
+      [this.state.golferFour.snakeCount, this.state.golferFour.rabbitCount, this.state.golferFour.balance]
+    ];
+    const balanceData = [this.state.golferOne.balance, this.state.golferTwo.balance, this.state.golferThree.balance, this.state.golferFour.balance];
 		return (
-
 			<ScrollView style={styles.scrollView}>
-				<Text>{this.state.golferOne.name} : {this.state.golferOne.balance}</Text>
-				<Text>{this.state.golferTwo.name} : {this.state.golferTwo.balance}</Text>
-				<Text>{this.state.golferThree.name} : {this.state.golferThree.balance}</Text>
-				<Text>{this.state.golferFour.name} : {this.state.golferFour.balance}</Text>
+        <Table>
+          <Row data={tableHead} flexArr={[2, 1, 1, 1]} style={styles.head} textStyle={styles.text}/>
+          <TableWrapper style={{flexDirection: 'row'}}>
+            <Col data={tableTitle} style={styles.title} textStyle={styles.text}/>
+            <Rows data={tableData} flexArr={[1, 1, 1,]} style={styles.row} textStyle={styles.tableDataText}/>
+          </TableWrapper>
+        </Table>
 				{this.state.currentHole === 17 || this.state.currentHole === 18 ?
 					<Button
 						style={styles.buttonStyle}
@@ -153,7 +164,7 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	buttonStyle: {
-		marginTop: 5,
+		marginTop: 25,
 		marginBottom: 5,
 		marginLeft: 25,
 		marginRight: 25,
@@ -167,4 +178,27 @@ const styles = StyleSheet.create({
     padding: 5,
     flex: 1,
   },
+  head: {
+    height: 40,
+    backgroundColor: 'darkgreen'
+  },
+  title: {
+    flex: 2,
+    backgroundColor: 'darkgreen'
+  },
+  row: {
+    height: 36,
+  },
+  text: {
+    color: 'white',
+    textAlign: 'center'
+  },
+  tableDataText: {
+    textAlign: 'center',
+    color: 'darkgreen'
+  },
+  negativeTableValue: {
+    textAlign: 'center',
+    color: 'red'
+  }
 })

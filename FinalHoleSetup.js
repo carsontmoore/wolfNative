@@ -204,6 +204,7 @@ export default class FinalHoleSetup extends Component {
     const { params } = this.props.navigation.state;
     const { wolf } = this.state.currentWolf;
     const { bet } = this.state.betUnit;
+
     return (
       <View>
         <Text style={styles.textStyle}>
