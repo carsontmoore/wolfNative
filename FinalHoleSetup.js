@@ -45,7 +45,8 @@ export default class FinalHoleSetup extends Component {
       wolfDisabled: false,
       loneWolfDisabled: false,
       blindWolfDisabled: false,
-      whoWinsDisabled: true
+      whoWinsDisabled: true,
+      sliderDisabled : false
     }
     this.handleWolf = this.handleWolf.bind(this);
     this.handleBlindWolf = this.handleBlindWolf.bind(this);
@@ -71,9 +72,11 @@ export default class FinalHoleSetup extends Component {
       partnerOneDisabled : true,
       partnerTwoDisabled : true,
       partnerThreeDisabled : true,
+      wolfDisabled : true,
       loneWolfDisabled : true,
       blindWolfDisabled : true,
-      whoWinsDisabled : false
+      whoWinsDisabled : false,
+      sliderDisabled : true,
     });
   }
 
@@ -91,8 +94,10 @@ export default class FinalHoleSetup extends Component {
       partnerTwoDisabled : true,
       partnerThreeDisabled : true,
       wolfDisabled : true,
+      loneWolfDisabled : true,
       blindWolfDisabled : true,
-      whoWinsDisabled : false
+      whoWinsDisabled : false,
+      sliderDisabled : true
     });
   }
 
@@ -111,7 +116,9 @@ export default class FinalHoleSetup extends Component {
       partnerThreeDisabled : true,
       wolfDisabled : true,
       loneWolfDisabled : true,
-      whoWinsDisabled : false
+      blindWolfDisabled : true,
+      whoWinsDisabled : false,
+      sliderDisabled : true
     });
   }
 
@@ -135,12 +142,14 @@ export default class FinalHoleSetup extends Component {
     this.setState({
       teamWolf : teamWolf,
       teamSheep : teamSheep,
+      partnerOneDisabled : true,
       partnerTwoDisabled : true,
       partnerThreeDisabled : true,
       wolfDisabled : true,
       loneWolfDisabled : true,
       blindWolfDisabled : true,
-      whoWinsDisabled : false
+      whoWinsDisabled : false,
+      sliderDisabled : true
     });
   }
 
@@ -164,11 +173,13 @@ export default class FinalHoleSetup extends Component {
       teamWolf : teamWolf,
       teamSheep: teamSheep,
       partnerOneDisabled : true,
+      partnerTwoDisabled : true,
       partnerThreeDisabled : true,
       wolfDisabled : true,
       loneWolfDisabled : true,
       blindWolfDisabled : true,
-      whoWinsDisabled : false
+      whoWinsDisabled : false,
+      sliderDisabled: true
     });
   }
 
@@ -193,10 +204,12 @@ export default class FinalHoleSetup extends Component {
       teamSheep : teamSheep,
       partnerOneDisabled : true,
       partnerTwoDisabled : true,
+      partnerThreeDisabled : true,
       wolfDisabled : true,
       loneWolfDisabled : true,
       blindWolfDisabled : true,
-      whoWinsDisabled : false
+      whoWinsDisabled : false,
+      sliderDisabled : true
     });
   }
 
@@ -209,11 +222,18 @@ export default class FinalHoleSetup extends Component {
         <Text style={styles.textStyle}>
           {this.state.currentWolf} is the Wolf!
         </Text>
+        { this.state.sliderDisabled ?
         <Text style={styles.textStyle}>
-          Use the slider below to change the stakes for this hole!
+          Stakes can't be changed after teams are chosen!
         </Text>
+        :
+        <Text style={styles.textStyle}>
+          Change the stakes for this hole: {this.state.betUnit}
+        </Text>
+        }
         <Slider
           style={styles.sliderStyle}
+          disabled={this.state.sliderDisabled}
           maximumTrackTintColor={'darkgrey'}
           minimumTrackTintColor={'darkgreen'}
           maximumValue={20}
@@ -223,6 +243,7 @@ export default class FinalHoleSetup extends Component {
           onValueChange={(newBet) => this.setState({betUnit: newBet})}
           onSlidingComplete={(newBet) => this.setState({betUnit: newBet})}
         />
+
         <Text>
           The starting bet is now: {this.state.betUnit}
         </Text>
@@ -352,10 +373,5 @@ const styles = StyleSheet.create({
   sliderStyle: {
     padding: 8,
     flex: 1,
-  },
-  disabledButtonStyle: {
-    backgroundColor: 'darkgrey',
-    padding: 5,
-    marginTop: 10
   },
 })
