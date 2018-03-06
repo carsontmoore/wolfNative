@@ -23,7 +23,6 @@ export default class Scorecard extends Component {
 			snakeUnit: this.props.navigation.state.params.snakeUnit,
 			initialBetUnit: this.props.navigation.state.params.initialBetUnit,
 			holePushCounter: this.props.navigation.state.params.holePushCounter,
-			modalVisible: false
 		}
 		this.checkHoleNumber = this.checkHoleNumber.bind(this);
 	}
