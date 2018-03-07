@@ -43,14 +43,30 @@ export default class FinalScorecard extends Component {
       [this.state.golferThree.snakeCount, this.state.golferThree.rabbitCount, this.state.golferThree.balance],
       [this.state.golferFour.snakeCount, this.state.golferFour.rabbitCount, this.state.golferFour.balance]
     ];
-    const balanceData = [this.state.golferOne.balance, this.state.golferTwo.balance, this.state.golferThree.balance, this.state.golferFour.balance];
+    const tableTwoHead = ['Golfer', 'Final Balance'];
+    const tableTwoTitle = [this.state.golferOne.name, this.state.golferTwo.name, this.state.golferThree.name, this.state.golferFour.name];
+    const tableTwoData = [
+    (this.state.golferOne.balance+this.state.golferOne.rabbitCount*rabbitUnit-this.state.golferOne.snakeCount*snakeUnit),
+    (this.state.golferTwo.balance+this.state.golferTwo.rabbitCount*rabbitUnit-this.state.golferTwo.snakeCount*snakeUnit),
+    (this.state.golferThree.balance+this.state.golferThree.rabbitCount*rabbitUnit-this.state.golferThree.snakeCount*snakeUnit),
+    (this.state.golferFour.balance+this.state.golferFour.rabbitCount*rabbitUnit-this.state.golferFour.snakeCount*snakeUnit),
+    ];
     return (
       <ScrollView style={styles.scrollView}>
         <Table>
-          <Row data={tableHead} flexArr={[2, 1, 1, 1]} style={styles.head} textStyle={styles.text}/>
+          <Row data={tableTwoHead} flexArr={[2, 1]} style={styles.head} textStyle={styles.text}/>
           <TableWrapper style={{flexDirection: 'row'}}>
-            <Col data={tableTitle} style={styles.title} textStyle={styles.text}/>
-            <Rows data={tableData} flexArr={[1, 1, 1,]} style={styles.row} textStyle={styles.tableDataText}/>
+            <Col data={tableTwoTitle} style={styles.title} textStyle={styles.text}/>
+            <Rows data={tableTwoData} flexArr={[1]} style={styles.row} textStyle={styles.tableDataText}/>
+          </TableWrapper>
+        </Table>
+        <View style={styles.break}>
+        </View>
+        <Table>
+          <Row />
+          <TableWrapper style={{flexDirection: 'row'}}>
+            <Col />
+            <Rows />
           </TableWrapper>
         </Table>
         <Button
@@ -105,5 +121,8 @@ const styles = StyleSheet.create({
   negativeTableValue: {
     textAlign: 'center',
     color: 'red'
+  },
+  break: {
+    padding: 35
   }
 })
