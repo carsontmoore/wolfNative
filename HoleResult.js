@@ -43,6 +43,7 @@ export default class HoleResult extends Component {
 			teamSheep : this.props.navigation.state.params.teamSheep,
       teamWolfDisabled : false,
       teamSheepDisabled : false,
+      teamPigDisabled : false,
       pushBetDisabled : false,
       addRabbitsDisabled : true,
       addSnakesDisabled : true,
@@ -56,7 +57,9 @@ export default class HoleResult extends Component {
       addSnakeGolferOne : false,
       addSnakeGolferTwo : false,
       addSnakeGolferThree : false,
-      addSnakeGolferFour : false
+      addSnakeGolferFour : false,
+      isPigSelected: this.props.navigation.state.params.isPigSelected,
+      initialWolf : this.props.navigation.state.params.initialWolf
 		}
 		this.handleWolfWin = this.handleWolfWin.bind(this);
 		this.handleSheepWin = this.handleSheepWin.bind(this);
@@ -75,6 +78,8 @@ export default class HoleResult extends Component {
     this.addSnakeGolferTwo = this.addSnakeGolferTwo.bind(this);
     this.addSnakeGolferThree = this.addSnakeGolferThree.bind(this);
     this.addSnakeGolferFour = this.addSnakeGolferFour.bind(this);
+    this.handlePigWin = this.handlePigWin.bind(this);
+    this.updateWolfifPig = this.updateWolfifPig.bind(this);
 	}
 
 	static navigationOptions = ({navigation}) => ({
@@ -167,12 +172,12 @@ export default class HoleResult extends Component {
       golferTwo: update(this.state.golferTwo, {balance: {$set: golferTwoBalance}}),
       golferThree: update(this.state.golferThree, {balance: {$set: golferThreeBalance}}),
       golferFour: update(this.state.golferFour, {balance: {$set: golferFourBalance}}),
-      teamWolfDisabled : true,
-      teamSheepDisabled : true,
-      pushBetDisabled : true,
-      addRabbitsDisabled : false,
-      addSnakesDisabled : false,
-      advanceHoleDisabled : false
+      teamWolfDisabled: true,
+      teamSheepDisabled: true,
+      pushBetDisabled: true,
+      addRabbitsDisabled: false,
+      addSnakesDisabled: false,
+      advanceHoleDisabled: false
     })
 	}
 
@@ -268,6 +273,51 @@ export default class HoleResult extends Component {
       advanceHoleDisabled : false
 		})
 	}
+  handlePigWin() {
+    let betUnit = this.state.betUnit;
+    let currentWolf = this.state.currentWolf;
+    let golferOneBalance = this.state.golferOne.balance;
+    let golferTwoBalance = this.state.golferTwo.balance;
+    let golferThreeBalance = this.state.golferThree.balance;
+    let golferFourBalance = this.state.golferFour.balance;
+    if(currentWolf === this.state.golferOne.name) {
+      golferOneBalance = golferOneBalance + betUnit*3;
+      golferTwoBalance = golferTwoBalance - betUnit;
+      golferThreeBalance = golferThreeBalance - betUnit;
+      golferFourBalance = golferFourBalance - betUnit;
+    }
+    if(currentWolf === this.state.golferTwo.name) {
+      golferTwoBalance = golferTwoBalance + betUnit*3;
+      golferOneBalance = golferOneBalance - betUnit;
+      golferThreeBalance = golferThreeBalance - betUnit;
+      golferFourBalance = golferFourBalance - betUnit;
+    }
+    if(currentWolf === this.state.golferThree.name) {
+      golferThreeBalance = golferThreeBalance + betUnit*3;
+      golferOneBalance = golferOneBalance - betUnit;
+      golferTwoBalance = golferTwoBalance - betUnit;
+      golferFourBalance = golferFourBalance - betUnit;
+    }
+    if(currentWolf === this.state.golferFour.name) {
+      golferFourBalance = golferFourBalance + betUnit*3;
+      golferOneBalance = golferOneBalance - betUnit;
+      golferTwoBalance = golferTwoBalance - betUnit;
+      golferThreeBalance = golferThreeBalance - betUnit;
+    }
+    this.setState({
+      golferOne: update(this.state.golferOne, {balance: {$set: golferOneBalance}}),
+      golferTwo: update(this.state.golferTwo, {balance: {$set: golferTwoBalance}}),
+      golferThree: update(this.state.golferThree, {balance: {$set: golferThreeBalance}}),
+      golferFour: update(this.state.golferFour, {balance: {$set: golferFourBalance}}),
+      teamWolfDisabled: true,
+      teamSheepDisabled: true,
+      teamPigDisabled: true,
+      pushBetDisabled: true,
+      addRabbitsDisabled: false,
+      addSnakesDisabled: false,
+      advanceHoleDisabled: false
+    });
+  }
 
   handleHolePush() {
     let betUnit;
@@ -309,6 +359,14 @@ export default class HoleResult extends Component {
 		currentWolf === this.state.golferOne.name ? newWolf = this.state.golferTwo.name : currentWolf === this.state.golferTwo.name ? newWolf = this.state.golferThree.name : currentWolf === this.state.golferThree.name ? newWolf = this.state.golferFour.name : currentWolf === this.state.golferFour.name ? newWolf = this.state.golferOne.name : null ;
 		this.setState({currentWolf : newWolf});
 	}
+
+  updateWolfifPig() {
+    let newWolf;
+    let initialWolf = this.state.initialWolf;
+    console.log("initialWolf: ", initialWolf)
+    initialWolf === this.state.golferOne.name ? newWolf = this.state.golferTwo.name : initialWolf === this.state.golferTwo.name ? newWolf = this.state.golferThree.name : initialWolf === this.state.golferThree.name ? newWolf = this.state.golferFour.name : initialWolf === this.state.golferFour.name ? newWolf = this.state.golferOne.name : null ;
+    this.setState({currentWolf: newWolf});
+  }
 
   toggleRabbitModal() {
     this.setState({rabbitModalVisible : !this.state.rabbitModalVisible});
@@ -407,21 +465,39 @@ export default class HoleResult extends Component {
 		const { params } = this.props.navigation.state;
 		return (
 			<View>
-				<Button
-				style={styles.buttonStyle}
-				textStyle={styles.buttonTextStyle}
-				ref="wolfWinsButton"
-        isDisabled={this.state.teamWolfDisabled}
+        {this.state.isPigSelected ?
+        <Button
+        style={styles.buttonStyle}
+        textStyle={styles.buttonTextStyle}
+        isDisabled={this.state.teamPigDisabled}
         disabledStyle={styles.disabledButtonStyle}
-				onPress={() => {
-					this.handleWolfWin(),
-					this.incrementHole(),
-					this.updateNextWolf(),
+        onPress={() => {
+          this.handlePigWin(),
+          this.incrementHole(),
+          this.updateWolfifPig(),
           this.resetBetUnit(),
           this.resetHolePushCounter()
-				}}>
-					Team Wolf Wins!
-				</Button>
+        }}>
+        Pig Wins!
+        </Button>
+        :
+        <Button
+        style={styles.buttonStyle}
+        textStyle={styles.buttonTextStyle}
+        ref="wolfWinsButton"
+        isDisabled={this.state.teamWolfDisabled}
+        disabledStyle={styles.disabledButtonStyle}
+        onPress={() => {
+          this.handleWolfWin(),
+          this.incrementHole(),
+          this.updateNextWolf(),
+          this.resetBetUnit(),
+          this.resetHolePushCounter()
+        }}>
+          Team Wolf Wins!
+        </Button>
+
+        }
 				<Button
 				style={styles.buttonStyle}
 				textStyle={styles.buttonTextStyle}

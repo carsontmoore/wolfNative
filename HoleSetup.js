@@ -46,7 +46,9 @@ export default class HoleSetup extends Component {
 			loneWolfDisabled: false,
 			blindWolfDisabled: false,
 			whoWinsDisabled: true,
-			pigDisabled: true
+			pigDisabled: true,
+			isPigSelected : false,
+			initialWolf: this.props.navigation.state.params.currentWolf
 		}
 		this.handleWolf = this.handleWolf.bind(this);
 		this.handleBlindWolf = this.handleBlindWolf.bind(this);
@@ -176,7 +178,8 @@ export default class HoleSetup extends Component {
 			wolfDisabled : true,
 			loneWolfDisabled : true,
 			blindWolfDisabled : true,
-			whoWinsDisabled : false
+			whoWinsDisabled : false,
+			pigDisabled : false
 		});
 	}
 
@@ -205,7 +208,8 @@ export default class HoleSetup extends Component {
 			wolfDisabled : true,
 			loneWolfDisabled : true,
 			blindWolfDisabled : true,
-			whoWinsDisabled : false
+			whoWinsDisabled : false,
+			pigDisabled: false
 		});
 	}
 
@@ -232,7 +236,8 @@ export default class HoleSetup extends Component {
 			teamWolf: teamWolf,
 			teamSheep: teamSheep,
 			betUnit: betUnit,
-			pigDisabled: true
+			pigDisabled: true,
+			isPigSelected: true
 		})
 	}
 
@@ -355,7 +360,9 @@ export default class HoleSetup extends Component {
 							teamWolf : this.state.teamWolf,
 							teamSheep : this.state.teamSheep,
 							initialBetUnit: this.state.initialBetUnit,
-							holePushCounter: this.state.holePushCounter
+							holePushCounter: this.state.holePushCounter,
+							isPigSelected: this.state.isPigSelected,
+							initialWolf : this.state.initialWolf
 						})
 				}}>
 					Who wins the hole?
