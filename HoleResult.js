@@ -413,50 +413,86 @@ export default class HoleResult extends Component {
 
   addSnakeGolferOne() {
     let snakeCount = this.state.golferOne.snakeCount;
+    let golfer = this.state.golferOne.name;
     snakeCount ++ ;
-    this.setState({
-      golferOne: update(this.state.golferOne, {snakeCount: {$set: snakeCount}}),
-      addSnakeGolferOne: true,
-      addSnakeGolferTwo: true,
-      addSnakeGolferThree: true,
-      addSnakeGolferFour: true
-    });
+    Alert.alert(
+      'Assign snake to ' +golfer+ ' ?',
+      '',
+      [
+        {text: "Yes", onPress: () => {this.setState({
+            golferOne: update(this.state.golferOne, {snakeCount: {$set: snakeCount}}),
+            addSnakeGolferOne: true,
+            addSnakeGolferTwo: true,
+            addSnakeGolferThree: true,
+            addSnakeGolferFour: true
+        })}},
+        {text: "No"}
+      ],
+      { cancelable: false }
+    )
   }
 
   addSnakeGolferTwo() {
-    let snakeCount = this.state.golferOne.snakeCount;
+    let snakeCount = this.state.golferTwo.snakeCount;
+    let golfer = this.state.golferTwo.name;
     snakeCount ++ ;
-    this.setState({
-      golferTwo: update(this.state.golferTwo, {snakeCount: {$set: snakeCount}}),
-      addSnakeGolferOne: true,
-      addSnakeGolferTwo: true,
-      addSnakeGolferThree: true,
-      addSnakeGolferFour: true
-    });
+    Alert.alert(
+      'Assign snake to ' +golfer+ ' ?',
+      '',
+      [
+        {text: "Yes", onPress: () => {this.setState({
+            golferTwo: update(this.state.golferTwo, {snakeCount: {$set: snakeCount}}),
+            addSnakeGolferOne: true,
+            addSnakeGolferTwo: true,
+            addSnakeGolferThree: true,
+            addSnakeGolferFour: true
+        })}},
+        {text: "No"}
+      ],
+      { cancelable: false }
+    )
   }
 
   addSnakeGolferThree() {
     let snakeCount = this.state.golferThree.snakeCount;
+    let golfer = this.state.golferThree.name;
     snakeCount ++ ;
-    this.setState({
-      golferThree: update(this.state.golferThree, {snakeCount: {$set: snakeCount}}),
-      addSnakeGolferOne: true,
-      addSnakeGolferTwo: true,
-      addSnakeGolferThree: true,
-      addSnakeGolferFour: true
-    });
+    Alert.alert(
+      'Assign snake to ' +golfer+ ' ?',
+      '',
+      [
+        {text: "Yes", onPress: () => {this.setState({
+            golferThree: update(this.state.golferThree, {snakeCount: {$set: snakeCount}}),
+            addSnakeGolferOne: true,
+            addSnakeGolferTwo: true,
+            addSnakeGolferThree: true,
+            addSnakeGolferFour: true
+        })}},
+        {text: "No"}
+      ],
+      { cancelable: false }
+    )
   }
 
   addSnakeGolferFour() {
     let snakeCount = this.state.golferFour.snakeCount;
+    let golfer = this.state.golferFour.name;
     snakeCount ++ ;
-    this.setState({
-      golferFour: update(this.state.golferFour, {snakeCount: {$set: snakeCount}}),
-      addSnakeGolferOne: true,
-      addSnakeGolferTwo: true,
-      addSnakeGolferThree: true,
-      addSnakeGolferFour: true
-    });
+    Alert.alert(
+      'Assign snake to ' +golfer+ ' ?',
+      '',
+      [
+        {text: "Yes", onPress: () => {this.setState({
+            golferFour: update(this.state.golferFour, {snakeCount: {$set: snakeCount}}),
+            addSnakeGolferOne: true,
+            addSnakeGolferTwo: true,
+            addSnakeGolferThree: true,
+            addSnakeGolferFour: true
+        })}},
+        {text: "No"}
+      ],
+      { cancelable: false }
+    )
   }
 
 	render(){
