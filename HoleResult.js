@@ -68,7 +68,13 @@ export default class HoleResult extends Component {
     this.toggleRabbitModal = this.toggleRabbitModal.bind(this);
     this.toggleSnakeModal = this.toggleSnakeModal.bind(this);
     this.incrementRabbitGolferOne = this.incrementRabbitGolferOne.bind(this);
-    this.addSnake = this.addSnake.bind(this);
+    this.incrementRabbitGolferTwo = this.incrementRabbitGolferTwo.bind(this);
+    this.incrementRabbitGolferThree = this.incrementRabbitGolferThree.bind(this);
+    this.incrementRabbitGolferFour = this.incrementRabbitGolferFour.bind(this);
+    this.addSnakeGolferOne = this.addSnakeGolferOne.bind(this);
+    this.addSnakeGolferTwo = this.addSnakeGolferTwo.bind(this);
+    this.addSnakeGolferThree = this.addSnakeGolferThree.bind(this);
+    this.addSnakeGolferFour = this.addSnakeGolferFour.bind(this);
 	}
 
 	static navigationOptions = ({navigation}) => ({
@@ -316,13 +322,84 @@ export default class HoleResult extends Component {
     let rabbitCount = this.state.golferOne.rabbitCount;
     rabbitCount ++ ;
     this.setState({
-      golferOne: update(this.state.golferOne, {rabbitCount: {$set: rabbitCount}}),
+      golferOne : update(this.state.golferOne, {rabbitCount: {$set: rabbitCount}}),
       addRabbitGolferOne : true
     });
   }
 
-  addSnake() {
+  incrementRabbitGolferTwo() {
+    let rabbitCount = this.state.golferTwo.rabbitCount;
+    rabbitCount ++ ;
+    this.setState({
+      golferTwo : update(this.state.golferTwo, {rabbitCount: {$set: rabbitCount}}),
+      addRabbitGolferTwo : true
+    });
+  }
 
+  incrementRabbitGolferThree() {
+    let rabbitCount = this.state.golferThree.rabbitCount;
+    rabbitCount ++ ;
+    this.setState({
+      golferThree : update(this.state.golferThree, {rabbitCount: {$set: rabbitCount}}),
+      addRabbitGolferThree : true
+    });
+  }
+
+  incrementRabbitGolferFour() {
+    let rabbitCount = this.state.golferFour.rabbitCount;
+    rabbitCount ++ ;
+    this.setState({
+      golferFour: update(this.state.golferFour, {rabbitCount: {$set: rabbitCount}}),
+      addRabbitGolferFour : true
+    });
+  }
+
+  addSnakeGolferOne() {
+    let snakeCount = this.state.golferOne.snakeCount;
+    snakeCount ++ ;
+    this.setState({
+      golferOne: update(this.state.golferOne, {snakeCount: {$set: snakeCount}}),
+      addSnakeGolferOne: true,
+      addSnakeGolferTwo: true,
+      addSnakeGolferThree: true,
+      addSnakeGolferFour: true
+    });
+  }
+
+  addSnakeGolferTwo() {
+    let snakeCount = this.state.golferOne.snakeCount;
+    snakeCount ++ ;
+    this.setState({
+      golferTwo: update(this.state.golferTwo, {snakeCount: {$set: snakeCount}}),
+      addSnakeGolferOne: true,
+      addSnakeGolferTwo: true,
+      addSnakeGolferThree: true,
+      addSnakeGolferFour: true
+    });
+  }
+
+  addSnakeGolferThree() {
+    let snakeCount = this.state.golferThree.snakeCount;
+    snakeCount ++ ;
+    this.setState({
+      golferThree: update(this.state.golferThree, {snakeCount: {$set: snakeCount}}),
+      addSnakeGolferOne: true,
+      addSnakeGolferTwo: true,
+      addSnakeGolferThree: true,
+      addSnakeGolferFour: true
+    });
+  }
+
+  addSnakeGolferFour() {
+    let snakeCount = this.state.golferFour.snakeCount;
+    snakeCount ++ ;
+    this.setState({
+      golferFour: update(this.state.golferFour, {snakeCount: {$set: snakeCount}}),
+      addSnakeGolferOne: true,
+      addSnakeGolferTwo: true,
+      addSnakeGolferThree: true,
+      addSnakeGolferFour: true
+    });
   }
 
 	render(){
@@ -384,51 +461,54 @@ export default class HoleResult extends Component {
 				</Button>
         <Modal
           isVisible={this.state.rabbitModalVisible}
-          backdropColor="darkgrey"
-          backdropOpacity={1}>
+          backdropColor="black"
+          backdropOpacity={.9}>
           <View style={{ flex: 1 }}>
-            <Text style={styles.textStyle}>Select all players who earned a rabbit:</Text>
+            <Text style={styles.modalText}>Who earned a rabbit?</Text>
             <Button
-              style={styles.buttonStyle}
+              style={styles.modalButtonStyle}
               textStyle={styles.buttonTextStyle}
               isDisabled={this.state.addRabbitGolferOne}
               disabledButtonStyle={styles.disabledButtonStyle}
               onPress={() => {
-
+                this.incrementRabbitGolferOne()
               }}>
               {this.state.golferOne.name}
             </Button>
             <Button
-              style={styles.buttonStyle}
+              style={styles.modalButtonStyle}
               textStyle={styles.buttonTextStyle}
               isDisabled={this.state.addRabbitGolferTwo}
               disabledButtonStyle={styles.disabledButtonStyle}
               onPress={() => {
-
+                this.incrementRabbitGolferTwo()
               }}>
               {this.state.golferTwo.name}
             </Button>
             <Button
-              style={styles.buttonStyle}
+              style={styles.modalButtonStyle}
               textStyle={styles.buttonTextStyle}
               isDisabled={this.state.addRabbitGolferThree}
               disabledButtonStyle={styles.disabledButtonStyle}
               onPress={() => {
-
+                this.incrementRabbitGolferThree()
               }}>
               {this.state.golferThree.name}
             </Button>
             <Button
-              style={styles.buttonStyle}
+              style={styles.modalButtonStyle}
               textStyle={styles.buttonTextStyle}
               isDisabled={this.state.addRabbitGolferFour}
               disabledButtonStyle={styles.disabledButtonStyle}
               onPress={() => {
-
+                this.incrementRabbitGolferFour()
               }}>
               {this.state.golferFour.name}
             </Button>
-            <Button onPress={() => {
+            <Button
+            style={styles.closeModalButtonStyle}
+            textStyle={styles.buttonTextStyle}
+            onPress={() => {
               this.toggleRabbitModal()
             }}>
               Close
@@ -445,52 +525,60 @@ export default class HoleResult extends Component {
         }}>
 					Add Snakes
 				</Button>
-        <Modal isVisible={this.state.snakeModalVisible}>
+        <Modal
+          isVisible={this.state.snakeModalVisible}
+          backdropColor='black'
+          backdropOpacity={.9}>
           <View style={{ flex: 1 }}>
-            <Text style={styles.textStyle}>Select player responsible for snake:</Text>
+            <Text style={styles.modalText}>Who gets the snake?</Text>
             <Button
-              style={styles.buttonStyle}
+              style={styles.modalButtonStyle}
               textStyle={styles.buttonTextStyle}
               isDisabled={this.state.addSnakeGolferOne}
               disabledButtonStyle={styles.disabledButtonStyle}
               onPress={() => {
-
+                this.addSnakeGolferOne()
               }}>
               {this.state.golferOne.name}
             </Button>
             <Button
-              style={styles.buttonStyle}
+              style={styles.modalButtonStyle}
               textStyle={styles.buttonTextStyle}
               isDisabled={this.state.addSnakeGolferTwo}
               disabledButtonStyle={styles.disabledButtonStyle}
               onPress={() => {
-
+                this.addSnakeGolferTwo()
               }}>
               {this.state.golferTwo.name}
             </Button>
             <Button
-              style={styles.buttonStyle}
+              style={styles.modalButtonStyle}
               textStyle={styles.buttonTextStyle}
               isDisabled={this.state.addSnakeGolferThree}
               disabledButtonStyle={styles.disabledButtonStyle}
               onPress={() => {
-
+                this.addSnakeGolferThree()
               }}>
               {this.state.golferThree.name}
             </Button>
             <Button
-              style={styles.buttonStyle}
+              style={styles.modalButtonStyle}
               textStyle={styles.buttonTextStyle}
               isDisabled={this.state.addSnakeGolferFour}
               disabledButtonStyle={styles.disabledButtonStyle}
               onPress={() => {
-
+                this.addSnakeGolferFour()
               }}>
               {this.state.golferFour.name}
             </Button>
-            <TouchableOpacity onPress={this.toggleSnakeModal}>
-              <Text>Close</Text>
-            </TouchableOpacity>
+            <Button
+            style={styles.closeModalButtonStyle}
+            textStyle={styles.buttonTextStyle}
+            onPress={() => {
+              this.toggleSnakeModal()
+            }}>
+              Close
+            </Button>
           </View>
         </Modal>
 				<Text>{this.state.currentWolf} is the new Wolf!</Text>
@@ -571,9 +659,32 @@ const styles = StyleSheet.create({
 		marginTop: 10
 	},
   disabledButtonStyle: {
-  backgroundColor: 'darkgrey',
-  padding: 5,
-  marginTop: 10
+    backgroundColor: 'darkgrey',
+    padding: 5,
+    marginTop: 10
 },
-
+  modalButtonStyle: {
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft: 40,
+    marginRight: 40,
+    borderColor: 'white',
+    backgroundColor: 'green'
+  },
+  closeModalButtonStyle: {
+    marginTop: 40,
+    marginBottom: 10,
+    marginLeft: 40,
+    marginRight: 40,
+    borderColor: 'white',
+    backgroundColor: 'red'
+  },
+  modalText: {
+    color: 'white',
+    padding: 20,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 15,
+    alignSelf: 'center'
+  }
 })
