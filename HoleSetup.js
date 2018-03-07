@@ -6,7 +6,8 @@ import {
   Text,
   View,
   Slider,
-  Alert
+  Alert,
+  ScrollView
  } from 'react-native';
 import { StackNavigator }  from 'react-navigation';
 import Button from'apsl-react-native-button';
@@ -44,7 +45,8 @@ export default class HoleSetup extends Component {
 			wolfDisabled: false,
 			loneWolfDisabled: false,
 			blindWolfDisabled: false,
-			whoWinsDisabled: true
+			whoWinsDisabled: true,
+			pigDisabled: true
 		}
 		this.handleWolf = this.handleWolf.bind(this);
 		this.handleBlindWolf = this.handleBlindWolf.bind(this);
@@ -52,6 +54,7 @@ export default class HoleSetup extends Component {
 		this.handlePartnerOne = this.handlePartnerOne.bind(this);
 		this.handlePartnerTwo = this.handlePartnerTwo.bind(this);
 		this.handlePartnerThree = this.handlePartnerThree.bind(this);
+		this.handlePig = this.handlePig.bind(this);
 	}
 
 	static navigationOptions = ({navigation}) => ({
@@ -143,7 +146,8 @@ export default class HoleSetup extends Component {
 			wolfDisabled : true,
 			loneWolfDisabled : true,
 			blindWolfDisabled : true,
-			whoWinsDisabled : false
+			whoWinsDisabled : false,
+			pigDisabled: false
 		});
 	}
 
@@ -205,10 +209,43 @@ export default class HoleSetup extends Component {
 		});
 	}
 
+	handlePig() {
+		let pig;
+		let newSheep;
+		let teamWolf = this.state.teamWolf;
+		console.log("teamWolf: ",teamWolf);
+		let teamSheep = this.state.teamSheep;
+		console.log("teamSheep: ",teamSheep)
+		let betUnit = this.state.betUnit;
+		pig = teamWolf[1];
+		console.log("pig: ",pig)
+		newSheep = teamWolf[0];
+		console.log("newSheep: ",newSheep)
+		teamWolf.shift();
+		console.log("teamWolf after shift should be pig: ",teamWolf);
+		teamSheep.push(newSheep);
+		console.log("teamSheep after push should have old wolf: ",teamSheep)
+		betUnit = betUnit * 2;
+		console.log("betUnit should double: ",betUnit)
+		this.setState({
+			currentWolf: pig,
+			teamWolf: teamWolf,
+			teamSheep: teamSheep,
+			betUnit: betUnit,
+			pigDisabled: true
+		})
+	}
+
 	render() {
 		const { navigate } = this.props.navigation;
 		const { params } = this.props.navigation.state;
+		let pig;
+		let teamWolf = this.state.teamWolf;
+		if(teamWolf.length === 2) {
+			pig = teamWolf[1];
+		}
 		return (
+			<ScrollView style={styles.scrollView}>
 			<View>
 				<Text style={styles.textStyle}>
 					{this.state.currentWolf} is the Wolf!
@@ -284,6 +321,21 @@ export default class HoleSetup extends Component {
 				</Button>
 				<Text>Team Wolf is {this.state.teamWolf}</Text>
 				<Text>Team Sheep is {this.state.teamSheep}</Text>
+				{this.state.teamWolf.length === 2 ?
+					<Button
+						style={styles.pigButtonStyle}
+						textStyle={styles.buttonTextStyle}
+						isDisabled={this.state.pigDisabled}
+						disabledButtonStyle={styles.disabledButtonStyle}
+						onPress={() => {
+							this.handlePig()
+						}}>
+						PIG the Wolf! Bet doubles!
+					</Button>
+					:
+					<View>
+					</View>
+				}
 				<Button
 				style={styles.buttonStyle}
 				textStyle={styles.buttonTextStyle}
@@ -309,11 +361,15 @@ export default class HoleSetup extends Component {
 					Who wins the hole?
 				</Button>
 			</View>
+			</ScrollView>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
+	scrollView: {
+		flex: 1
+	},
 	buttonStyle: {
   	marginTop: 10,
   	marginBottom: 10,
@@ -337,5 +393,12 @@ const styles = StyleSheet.create({
 		padding: 5,
 		marginTop: 10
 	},
-
+	pigButtonStyle: {
+		marginTop: 10,
+  	marginBottom: 10,
+  	marginLeft: 25,
+  	marginRight: 25,
+  	borderColor: 'white',
+  	backgroundColor: 'orange'
+	}
 })
