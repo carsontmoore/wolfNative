@@ -363,7 +363,6 @@ export default class HoleResult extends Component {
   updateWolfifPig() {
     let newWolf;
     let initialWolf = this.state.initialWolf;
-    console.log("initialWolf: ", initialWolf)
     initialWolf === this.state.golferOne.name ? newWolf = this.state.golferTwo.name : initialWolf === this.state.golferTwo.name ? newWolf = this.state.golferThree.name : initialWolf === this.state.golferThree.name ? newWolf = this.state.golferFour.name : initialWolf === this.state.golferFour.name ? newWolf = this.state.golferOne.name : null ;
     this.setState({currentWolf: newWolf});
   }
@@ -657,8 +656,6 @@ export default class HoleResult extends Component {
             </Button>
           </View>
         </Modal>
-				<Text>{this.state.currentWolf} is the new Wolf!</Text>
-        <Text>The starting bet for the next hole is {this.state.betUnit}</Text>
         {this.state.currentHole <= 18 ?
 				<Button
 					style={styles.buttonStyle}

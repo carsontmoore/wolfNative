@@ -217,20 +217,13 @@ export default class HoleSetup extends Component {
 		let pig;
 		let newSheep;
 		let teamWolf = this.state.teamWolf;
-		console.log("teamWolf: ",teamWolf);
 		let teamSheep = this.state.teamSheep;
-		console.log("teamSheep: ",teamSheep)
 		let betUnit = this.state.betUnit;
 		pig = teamWolf[1];
-		console.log("pig: ",pig)
 		newSheep = teamWolf[0];
-		console.log("newSheep: ",newSheep)
 		teamWolf.shift();
-		console.log("teamWolf after shift should be pig: ",teamWolf);
 		teamSheep.push(newSheep);
-		console.log("teamSheep after push should have old wolf: ",teamSheep)
 		betUnit = betUnit * 2;
-		console.log("betUnit should double: ",betUnit)
 		this.setState({
 			currentWolf: pig,
 			teamWolf: teamWolf,
@@ -244,11 +237,6 @@ export default class HoleSetup extends Component {
 	render() {
 		const { navigate } = this.props.navigation;
 		const { params } = this.props.navigation.state;
-		let pig;
-		let teamWolf = this.state.teamWolf;
-		if(teamWolf.length === 2) {
-			pig = teamWolf[1];
-		}
 		return (
 			<ScrollView style={styles.scrollView}>
 			<View>

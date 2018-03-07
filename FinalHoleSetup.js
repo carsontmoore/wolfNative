@@ -46,7 +46,10 @@ export default class FinalHoleSetup extends Component {
       loneWolfDisabled: false,
       blindWolfDisabled: false,
       whoWinsDisabled: true,
-      sliderDisabled : false
+      sliderDisabled : false,
+      pigDisabled: true,
+      isPigSelected : false,
+      initialWolf: this.props.navigation.state.params.currentWolf
     }
     this.handleWolf = this.handleWolf.bind(this);
     this.handleBlindWolf = this.handleBlindWolf.bind(this);
@@ -54,6 +57,7 @@ export default class FinalHoleSetup extends Component {
     this.handlePartnerOne = this.handlePartnerOne.bind(this);
     this.handlePartnerTwo = this.handlePartnerTwo.bind(this);
     this.handlePartnerThree = this.handlePartnerThree.bind(this);
+    this.handlePig = this.handlePig.bind(this);
   }
 
   static navigationOptions = ({navigation}) => ({
@@ -213,6 +217,28 @@ export default class FinalHoleSetup extends Component {
     });
   }
 
+  handlePig() {
+    let pig;
+    let newSheep;
+    let teamWolf = this.state.teamWolf;
+    let teamSheep = this.state.teamSheep;
+    let betUnit = this.state.betUnit;
+    pig = teamWolf[1];
+    newSheep = teamWolf[0];
+    teamWolf.shift();
+    teamSheep.push(newSheep);
+    betUnit = betUnit * 2;
+    this.setState({
+      currentWolf: pig,
+      teamWolf: teamWolf,
+      teamSheep: teamSheep,
+      betUnit: betUnit,
+      pigDisabled: true,
+      isPigSelected: true
+    })
+  }
+
+
   render() {
     const { navigate } = this.props.navigation;
     const { params } = this.props.navigation.state;
@@ -318,6 +344,21 @@ export default class FinalHoleSetup extends Component {
         </Button>
         <Text>Team Wolf is {this.state.teamWolf}</Text>
         <Text>Team Sheep is {this.state.teamSheep}</Text>
+        {this.state.teamWolf.length === 2 ?
+          <Button
+            style={styles.pigButtonStyle}
+            textStyle={styles.buttonTextStyle}
+            isDisabled={this.state.pigDisabled}
+            disabledButtonStyle={styles.disabledButtonStyle}
+            onPress={() => {
+              this.handlePig()
+            }}>
+            PIG the Wolf! Bet doubles!
+          </Button>
+          :
+          <View>
+          </View>
+        }
         <Button
         style={styles.buttonStyle}
         textStyle={styles.buttonTextStyle}
