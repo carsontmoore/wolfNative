@@ -377,38 +377,75 @@ export default class HoleResult extends Component {
 
   incrementRabbitGolferOne() {
     let rabbitCount = this.state.golferOne.rabbitCount;
+    let golfer = this.state.golferOne.name;
     rabbitCount ++ ;
-    this.setState({
-      golferOne : update(this.state.golferOne, {rabbitCount: {$set: rabbitCount}}),
-      addRabbitGolferOne : true
-    });
+    Alert.alert(
+      'Give rabbit to ' +golfer+ ' ?',
+      '',
+      [
+        {text: "Yes", onPress: () => {this.setState({
+          golferOne : update(this.state.golferOne, {rabbitCount: {$set: rabbitCount}}),
+          addRabbitGolferOne : true
+        })}},
+        {text: "No"}
+      ],
+      { cancelable : false }
+
+    )
   }
 
   incrementRabbitGolferTwo() {
     let rabbitCount = this.state.golferTwo.rabbitCount;
+    let golfer = this.state.golferTwo.name;
     rabbitCount ++ ;
-    this.setState({
-      golferTwo : update(this.state.golferTwo, {rabbitCount: {$set: rabbitCount}}),
-      addRabbitGolferTwo : true
-    });
+    Alert.alert(
+      'Give rabbit to ' +golfer+ ' ?',
+      '',
+      [
+        {text: "Yes", onPress: () => {this.setState({
+          golferTwo : update(this.state.golferTwo, {rabbitCount: {$set: rabbitCount}}),
+          addRabbitGolferTwo : true
+        })}},
+        {text: "No"}
+      ],
+      { cancelable : false }
+    )
   }
 
   incrementRabbitGolferThree() {
     let rabbitCount = this.state.golferThree.rabbitCount;
+    let golfer = this.state.golferThree.name;
     rabbitCount ++ ;
-    this.setState({
-      golferThree : update(this.state.golferThree, {rabbitCount: {$set: rabbitCount}}),
-      addRabbitGolferThree : true
-    });
+    Alert.alert(
+      'Give rabbit to ' +golfer+ ' ?',
+      '',
+      [
+        {text: "Yes", onPress: () => {this.setState({
+          golferThree : update(this.state.golferThree, {rabbitCount: {$set: rabbitCount}}),
+          addRabbitGolferThree : true
+        })}},
+        {text: "No"}
+      ],
+      { cancelable : false }
+    )
   }
 
   incrementRabbitGolferFour() {
     let rabbitCount = this.state.golferFour.rabbitCount;
+    let golfer = this.state.golferFour.name;
     rabbitCount ++ ;
-    this.setState({
-      golferFour: update(this.state.golferFour, {rabbitCount: {$set: rabbitCount}}),
-      addRabbitGolferFour : true
-    });
+    Alert.alert(
+      'Give rabbit to ' +golfer+ ' ?',
+      '',
+      [
+        {text: "Yes", onPress: () => {this.setState({
+          golferFour: update(this.state.golferFour, {rabbitCount: {$set: rabbitCount}}),
+          addRabbitGolferFour : true
+        })}},
+        {text: "No"}
+      ],
+      { cancelable : false }
+    )
   }
 
   addSnakeGolferOne() {
@@ -501,72 +538,71 @@ export default class HoleResult extends Component {
 		return (
 			<View>
         {this.state.isPigSelected ?
-        <Button
-        style={styles.buttonStyle}
-        textStyle={styles.buttonTextStyle}
-        isDisabled={this.state.teamPigDisabled}
-        disabledStyle={styles.disabledButtonStyle}
-        onPress={() => {
-          this.handlePigWin(),
-          this.incrementHole(),
-          this.updateWolfifPig(),
-          this.resetBetUnit(),
-          this.resetHolePushCounter()
-        }}>
-        Pig Wins!
-        </Button>
-        :
-        <Button
-        style={styles.buttonStyle}
-        textStyle={styles.buttonTextStyle}
-        ref="wolfWinsButton"
-        isDisabled={this.state.teamWolfDisabled}
-        disabledStyle={styles.disabledButtonStyle}
-        onPress={() => {
-          this.handleWolfWin(),
-          this.incrementHole(),
-          this.updateNextWolf(),
-          this.resetBetUnit(),
-          this.resetHolePushCounter()
-        }}>
-          Team Wolf Wins!
-        </Button>
-
+          <Button
+            style={styles.buttonStyle}
+            textStyle={styles.buttonTextStyle}
+            isDisabled={this.state.teamPigDisabled}
+            disabledStyle={styles.disabledButtonStyle}
+            onPress={() => {
+              this.handlePigWin(),
+              this.incrementHole(),
+              this.updateWolfifPig(),
+              this.resetBetUnit(),
+              this.resetHolePushCounter()
+          }}>
+            Pig Wins!
+          </Button>
+          :
+          <Button
+            style={styles.buttonStyle}
+            textStyle={styles.buttonTextStyle}
+            ref="wolfWinsButton"
+            isDisabled={this.state.teamWolfDisabled}
+            disabledStyle={styles.disabledButtonStyle}
+            onPress={() => {
+              this.handleWolfWin(),
+              this.incrementHole(),
+              this.updateNextWolf(),
+              this.resetBetUnit(),
+              this.resetHolePushCounter()
+          }}>
+            Team Wolf Wins!
+          </Button>
         }
 				<Button
-				style={styles.buttonStyle}
-				textStyle={styles.buttonTextStyle}
-				ref="sheepWinsButtons"
-        isDisabled={this.state.teamSheepDisabled}
-        disabledStyle={styles.disabledButtonStyle}
-				onPress={() => {
-					this.handleSheepWin(),
-					this.incrementHole(),
-          this.updateNextWolf(),
-          this.resetBetUnit(),
-          this.resetHolePushCounter()
+  				style={styles.buttonStyle}
+  				textStyle={styles.buttonTextStyle}
+  				ref="sheepWinsButtons"
+          isDisabled={this.state.teamSheepDisabled}
+          disabledStyle={styles.disabledButtonStyle}
+  				onPress={() => {
+  					this.handleSheepWin(),
+  					this.incrementHole(),
+            this.updateNextWolf(),
+            this.resetBetUnit(),
+            this.resetHolePushCounter()
 				}}>
-					Team Sheep Wins!
+				  Team Sheep Wins!
 				</Button>
         <Button
-        style={styles.buttonStyle}
-        textStyle={styles.buttonTextStyle}
-        isDisabled={this.state.pushBetDisabled}
-        disabledStyle={styles.disabledButtonStyle}
-        onPress={() => {
-          this.handleHolePush(),
-          this.incrementHole(),
-          this.updateNextWolf()
+          style={styles.buttonStyle}
+          textStyle={styles.buttonTextStyle}
+          isDisabled={this.state.pushBetDisabled}
+          disabledStyle={styles.disabledButtonStyle}
+          onPress={() => {
+            this.handleHolePush(),
+            this.incrementHole(),
+            this.updateNextWolf()
         }}>
           Push - bet carries over!
         </Button>
 				<Button
-				style={styles.buttonStyle}
-				textStyle={styles.buttonTextStyle}
-        isDisabled={this.state.addRabbitsDisabled}
-        disabledStyle={styles.disabledButtonStyle}
-        onPress={() => {
-          this.toggleRabbitModal()
+  				style={styles.buttonStyle}
+  				textStyle={styles.buttonTextStyle}
+          isDisabled={this.state.addRabbitsDisabled}
+          disabledStyle={styles.disabledButtonStyle}
+          onPress={() => {
+            this.toggleRabbitModal()
         }}>
 					Add Rabbits
 				</Button>
@@ -617,22 +653,22 @@ export default class HoleResult extends Component {
               {this.state.golferFour.name}
             </Button>
             <Button
-            style={styles.closeModalButtonStyle}
-            textStyle={styles.buttonTextStyle}
-            onPress={() => {
-              this.toggleRabbitModal()
+              style={styles.closeModalButtonStyle}
+              textStyle={styles.buttonTextStyle}
+              onPress={() => {
+                this.toggleRabbitModal()
             }}>
               Close
             </Button>
           </View>
         </Modal>
 				<Button
-				style={styles.buttonStyle}
-				textStyle={styles.buttonTextStyle}
-        isDisabled={this.state.addSnakesDisabled}
-        disabledStyle={styles.disabledButtonStyle}
-        onPress={() => {
-          this.toggleSnakeModal()
+  				style={styles.buttonStyle}
+  				textStyle={styles.buttonTextStyle}
+          isDisabled={this.state.addSnakesDisabled}
+          disabledStyle={styles.disabledButtonStyle}
+          onPress={() => {
+            this.toggleSnakeModal()
         }}>
 					Add Snakes
 				</Button>
@@ -683,10 +719,10 @@ export default class HoleResult extends Component {
               {this.state.golferFour.name}
             </Button>
             <Button
-            style={styles.closeModalButtonStyle}
-            textStyle={styles.buttonTextStyle}
-            onPress={() => {
-              this.toggleSnakeModal()
+              style={styles.closeModalButtonStyle}
+              textStyle={styles.buttonTextStyle}
+              onPress={() => {
+                this.toggleSnakeModal()
             }}>
               Close
             </Button>

@@ -111,44 +111,46 @@ export default class Scorecard extends Component {
             <Rows data={tableData} flexArr={[1, 1, 1,]} style={styles.row} textStyle={styles.tableDataText}/>
           </TableWrapper>
         </Table>
-				{this.state.currentHole === 17 || this.state.currentHole === 18 ?
-					<Button
-						style={styles.buttonStyle}
-						textStyle={styles.buttonTextStyle}
-						onPress={() => navigate('FinalHoleSetup', {
-							golferOne: this.state.golferOne,
-							golferTwo: this.state.golferTwo,
-							golferThree: this.state.golferThree,
-							golferFour: this.state.golferFour,
-							rabbitUnit: this.state.rabbitUnit,
-							snakeUnit: this.state.snakeUnit,
-							betUnit : this.state.betUnit,
-							currentHole: this.state.currentHole,
-							currentWolf: this.state.currentWolf,
-							initialBetUnit: this.state.initialBetUnit,
-							holePushCounter: this.state.holePushCounter
-						})}>
-						Play Hole {this.state.currentHole}
-					</Button>:
-					<Button
-						style={styles.buttonStyle}
-						textStyle={styles.buttonTextStyle}
-						onPress={() => navigate('HoleSetup', {
-							golferOne: this.state.golferOne,
-							golferTwo: this.state.golferTwo,
-							golferThree: this.state.golferThree,
-							golferFour: this.state.golferFour,
-							rabbitUnit: this.state.rabbitUnit,
-							snakeUnit: this.state.snakeUnit,
-							betUnit : this.state.betUnit,
-							currentHole: this.state.currentHole,
-							currentWolf: this.state.currentWolf,
-							initialBetUnit: this.state.initialBetUnit,
-							holePushCounter: this.state.holePushCounter
-						})}>
-						Play Hole {this.state.currentHole}
-					</Button>
-				}
+        <Text style={styles.textStyle}>Current stakes for next hole : {this.state.betUnit}</Text>
+        <Text style={styles.textStyle}>{this.state.currentWolf} is the next Wolf!</Text>
+        {this.state.currentHole === 17 || this.state.currentHole === 18 ?
+          <Button
+            style={styles.buttonStyle}
+            textStyle={styles.buttonTextStyle}
+            onPress={() => navigate('FinalHoleSetup', {
+              golferOne: this.state.golferOne,
+              golferTwo: this.state.golferTwo,
+              golferThree: this.state.golferThree,
+              golferFour: this.state.golferFour,
+              rabbitUnit: this.state.rabbitUnit,
+              snakeUnit: this.state.snakeUnit,
+              betUnit : this.state.betUnit,
+              currentHole: this.state.currentHole,
+              currentWolf: this.state.currentWolf,
+              initialBetUnit: this.state.initialBetUnit,
+              holePushCounter: this.state.holePushCounter
+            })}>
+            Play Hole {this.state.currentHole}
+          </Button>:
+          <Button
+            style={styles.buttonStyle}
+            textStyle={styles.buttonTextStyle}
+            onPress={() => navigate('HoleSetup', {
+              golferOne: this.state.golferOne,
+              golferTwo: this.state.golferTwo,
+              golferThree: this.state.golferThree,
+              golferFour: this.state.golferFour,
+              rabbitUnit: this.state.rabbitUnit,
+              snakeUnit: this.state.snakeUnit,
+              betUnit : this.state.betUnit,
+              currentHole: this.state.currentHole,
+              currentWolf: this.state.currentWolf,
+              initialBetUnit: this.state.initialBetUnit,
+              holePushCounter: this.state.holePushCounter
+            })}>
+            Play Hole {this.state.currentHole}
+          </Button>
+        }
 			</ScrollView>
 		)
 	}
@@ -195,5 +197,12 @@ const styles = StyleSheet.create({
   negativeTableValue: {
     textAlign: 'center',
     color: 'red'
+  },
+  textStyle: {
+    textAlign: 'center',
+    color: 'darkgreen',
+    padding: 25,
+    fontWeight: 'bold',
+    fontSize: 20
   }
 })

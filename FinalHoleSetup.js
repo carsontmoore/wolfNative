@@ -342,8 +342,6 @@ export default class FinalHoleSetup extends Component {
           }}>
           Partner with{this.state.currentWolf === this.state.golferOne.name ? this.state.golferFour.name : this.state.currentWolf === this.state.golferTwo.name ? this.state.golferOne.name : this.state.currentWolf === this.state.golferThree.name ? this.state.golferTwo.name : this.state.currentWolf === this.state.golferFour.name ? this.state.golferThree.name : null}
         </Button>
-        <Text>Team Wolf is {this.state.teamWolf}</Text>
-        <Text>Team Sheep is {this.state.teamSheep}</Text>
         {this.state.teamWolf.length === 2 ?
           <Button
             style={styles.pigButtonStyle}
@@ -414,5 +412,18 @@ const styles = StyleSheet.create({
   sliderStyle: {
     padding: 8,
     flex: 1,
+  },
+  pigButtonStyle: {
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 25,
+    marginRight: 25,
+    borderColor: 'white',
+    backgroundColor: 'orange'
+  },
+  disabledButtonStyle: {
+    backgroundColor: 'darkgrey',
+    padding: 5,
+    marginTop: 10
   },
 })

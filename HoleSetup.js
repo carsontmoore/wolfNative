@@ -288,7 +288,7 @@ export default class HoleSetup extends Component {
 					onPress={() => {
 						this.handlePartnerOne()
 					}}>
-					Partner with{this.state.currentWolf === this.state.golferOne.name ? this.state.golferTwo.name : this.state.currentWolf === this.state.golferTwo.name ? this.state.golferThree.name : this.state.currentWolf === this.state.golferThree.name ? this.state.golferFour.name : this.state.currentWolf === this.state.golferFour.name ? this.state.golferOne.name : null}
+					{this.state.currentWolf === this.state.golferOne.name ? this.state.golferTwo.name : this.state.currentWolf === this.state.golferTwo.name ? this.state.golferThree.name : this.state.currentWolf === this.state.golferThree.name ? this.state.golferFour.name : this.state.currentWolf === this.state.golferFour.name ? this.state.golferOne.name : null}
 				</Button>
 				<Button
 					style={styles.buttonStyle}
@@ -299,7 +299,7 @@ export default class HoleSetup extends Component {
 					onPress={() => {
 						this.handlePartnerTwo()
 					}}>
-					Partner with{this.state.currentWolf === this.state.golferOne.name ? this.state.golferThree.name : this.state.currentWolf === this.state.golferTwo.name ? this.state.golferFour.name : this.state.currentWolf === this.state.golferThree.name ? this.state.golferOne.name : this.state.currentWolf === this.state.golferFour.name ? this.state.golferTwo.name : null}
+					{this.state.currentWolf === this.state.golferOne.name ? this.state.golferThree.name : this.state.currentWolf === this.state.golferTwo.name ? this.state.golferFour.name : this.state.currentWolf === this.state.golferThree.name ? this.state.golferOne.name : this.state.currentWolf === this.state.golferFour.name ? this.state.golferTwo.name : null}
 				</Button>
 				<Button
 					style={styles.buttonStyle}
@@ -310,10 +310,8 @@ export default class HoleSetup extends Component {
 					onPress={() => {
 						this.handlePartnerThree()
 					}}>
-					Partner with{this.state.currentWolf === this.state.golferOne.name ? this.state.golferFour.name : this.state.currentWolf === this.state.golferTwo.name ? this.state.golferOne.name : this.state.currentWolf === this.state.golferThree.name ? this.state.golferTwo.name : this.state.currentWolf === this.state.golferFour.name ? this.state.golferThree.name : null}
+					{this.state.currentWolf === this.state.golferOne.name ? this.state.golferFour.name : this.state.currentWolf === this.state.golferTwo.name ? this.state.golferOne.name : this.state.currentWolf === this.state.golferThree.name ? this.state.golferTwo.name : this.state.currentWolf === this.state.golferFour.name ? this.state.golferThree.name : null}
 				</Button>
-				<Text>Team Wolf is {this.state.teamWolf}</Text>
-				<Text>Team Sheep is {this.state.teamSheep}</Text>
 				{this.state.teamWolf.length === 2 ?
 					<Button
 						style={styles.pigButtonStyle}
@@ -379,9 +377,10 @@ const styles = StyleSheet.create({
   textStyle: {
 		color: 'darkgreen',
 		padding: 5,
-		fontSize: 16,
+		fontSize: 18,
 		fontWeight: 'bold',
-		marginTop: 10
+		marginTop: 10,
+		textAlign: 'center'
 	},
 	disabledButtonStyle: {
 		backgroundColor: 'darkgrey',

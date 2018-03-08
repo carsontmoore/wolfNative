@@ -53,6 +53,14 @@ export default class FinalScorecard extends Component {
     ];
     return (
       <ScrollView style={styles.scrollView}>
+      <Table>
+        <Row data={tableHead} flexArr={[2, 1, 1, 1]} style={styles.head} textStyle={styles.text}/>
+        <TableWrapper style={{flexDirection: 'row'}}>
+          <Col data={tableTitle} style={styles.title} textStyle={styles.text}/>
+          <Rows data={tableData} flexArr={[1, 1, 1,]} style={styles.row} textStyle={styles.tableDataText}/>
+        </TableWrapper>
+      </Table>
+        <View style={styles.break}></View>
         <Table>
           <Row data={tableTwoHead} flexArr={[2, 1]} style={styles.head} textStyle={styles.text}/>
           <TableWrapper style={{flexDirection: 'row'}}>
@@ -60,15 +68,7 @@ export default class FinalScorecard extends Component {
             <Rows data={tableTwoData} flexArr={[1]} style={styles.row} textStyle={styles.tableDataText}/>
           </TableWrapper>
         </Table>
-        <View style={styles.break}>
-        </View>
-        <Table>
-          <Row />
-          <TableWrapper style={{flexDirection: 'row'}}>
-            <Col />
-            <Rows />
-          </TableWrapper>
-        </Table>
+        <View style={styles.break}></View>
         <Button
           style={styles.buttonStyle}
           textStyle={styles.buttonTextStyle}
