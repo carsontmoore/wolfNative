@@ -23,6 +23,7 @@ export default class FinalScorecard extends Component {
       holePushCounter: this.props.navigation.state.params.holePushCounter,
       modalVisible: false
     }
+    this.calculateFinalBalances = this.calculateFinalBalances.bind(this);
   }
 
   static navigationOptions = ({navigation}) => ({
@@ -30,11 +31,27 @@ export default class FinalScorecard extends Component {
     headerTintColor: 'darkgreen',
   })
 
+  calculateFinalBalances() {
+   let golferOneBalance = this.state.golferOne.balance;
+   let golferOneRabbits = this.state.golferOne.rabbitCount;
+   let golferOneSnakes = this.state.golferOne.snakeCount;
+   let golferTwoBalance = this.state.golferTwo.balance;
+   let golferTwoRabbits = this.state.golferTwo.rabbitCount;
+   let golferTwoSnakes = this.state.golferTwo.snakeCount;
+   let golferThreeBalance = this.state.golferThree.balance;
+   let golferThreeRabbits = this.state.golferThree.rabbitCount;
+   let golferThreeSnakes = this.state.golferThree.snakeCount;
+   let golferFourBalance = this.state.golferFour.balance;
+   let golferFourRabbits = this.state.golferFour.rabbitCount;
+   let golferFourSnakes = this.state.golferFour.snakeCount;
+   let rabbitUnit = this.state.rabbitUnit;
+   let snakeUnit = this.state.snakeUnit;
+   golferOneBalance = golferOneRabbits*betUnit*3;
+  }
+
     render() {
     const { params } = this.props.navigation.state;
     const { navigate } = this.props.navigation;
-    console.log("SCORECARD PARAMS: ", params);
-    console.log("SCOREDCARD STATE: ", this.state);
     const tableHead = ['Golfer', 'Snakes', 'Rabbits', 'Balance'];
     const tableTitle = [this.state.golferOne.name, this.state.golferTwo.name, this.state.golferThree.name, this.state.golferFour.name];
     const tableData = [
@@ -43,32 +60,29 @@ export default class FinalScorecard extends Component {
       [this.state.golferThree.snakeCount, this.state.golferThree.rabbitCount, this.state.golferThree.balance],
       [this.state.golferFour.snakeCount, this.state.golferFour.rabbitCount, this.state.golferFour.balance]
     ];
-    const tableTwoHead = ['Golfer', 'Final Balance'];
-    const tableTwoTitle = [this.state.golferOne.name, this.state.golferTwo.name, this.state.golferThree.name, this.state.golferFour.name];
-    const tableTwoData = [
-    (this.state.golferOne.balance+this.state.golferOne.rabbitCount*rabbitUnit-this.state.golferOne.snakeCount*snakeUnit),
-    (this.state.golferTwo.balance+this.state.golferTwo.rabbitCount*rabbitUnit-this.state.golferTwo.snakeCount*snakeUnit),
-    (this.state.golferThree.balance+this.state.golferThree.rabbitCount*rabbitUnit-this.state.golferThree.snakeCount*snakeUnit),
-    (this.state.golferFour.balance+this.state.golferFour.rabbitCount*rabbitUnit-this.state.golferFour.snakeCount*snakeUnit),
+    const rabbitUnit = this.state.rabbitUnit;
+    const snakeUnit = this.state.snakeUnit;
+    const finalBalances = [
+      (this.state.golferOne.balance+(3*this.state.golferOne.rabbitCount*rabbitUnit)-(3*this.state.golferOne.snakeCount*snakeUnit)-(this.state.golferTwo.rabbitCount*rabbitUnit)-(this.state.golferThree.rabbitCount*rabbitUnit)-(this.state.golferFour.rabbitCount*rabbitUnit)+(this.state.golferTwo.snakeCount*snakeUnit)+(this.state.golferThree.snakeCount*snakeUnit)+(this.state.golferFour.snakeCount*snakeUnit)),
+      (this.state.golferTwo.balance+(3*this.state.golferTwo.rabbitCount*rabbitUnit)-(3*this.state.golferTwo.snakeCount*snakeUnit)-(this.state.golferOne.rabbitCount*rabbitUnit)-(this.state.golferThree.rabbitCount*rabbitUnit)-(this.state.golferFour.rabbitCount*rabbitUnit)+(this.state.golferOne.snakeCount*snakeUnit)+(this.state.golferThree.snakeCount*snakeUnit)+(this.state.golferFour.snakeCount*snakeUnit)),
+      (this.state.golferThree.balance+(3*this.state.golferThree.rabbitCount*rabbitUnit)-(3*this.state.golferThree.snakeCount*snakeUnit)-(this.state.golferOne.rabbitCount*rabbitUnit)-(this.state.golferTwo.rabbitCount*rabbitUnit)-(this.state.golferFour.rabbitCount*rabbitUnit)+(this.state.golferOne.snakeCount*snakeUnit)+(this.state.golferTwo.snakeCount*snakeUnit)+(this.state.golferFour.snakeCount*snakeUnit)),
+      (this.state.golferFour.balance+(3*this.state.golferFour.rabbitCount*rabbitUnit)-(3*this.state.golferFour.snakeCount*snakeUnit)-(this.state.golferOne.rabbitCount*rabbitUnit)-(this.state.golferTwo.rabbitCount*rabbitUnit)-(this.state.golferThree.rabbitCount*rabbitUnit)+(this.state.golferOne.snakeCount*snakeUnit)+(this.state.golferTwo.snakeCount*snakeUnit)+(this.state.golferThree.snakeCount*snakeUnit))
     ];
     return (
       <ScrollView style={styles.scrollView}>
-      <Table>
-        <Row data={tableHead} flexArr={[2, 1, 1, 1]} style={styles.head} textStyle={styles.text}/>
-        <TableWrapper style={{flexDirection: 'row'}}>
-          <Col data={tableTitle} style={styles.title} textStyle={styles.text}/>
-          <Rows data={tableData} flexArr={[1, 1, 1,]} style={styles.row} textStyle={styles.tableDataText}/>
-        </TableWrapper>
-      </Table>
-        <View style={styles.break}></View>
         <Table>
-          <Row data={tableTwoHead} flexArr={[2, 1]} style={styles.head} textStyle={styles.text}/>
+          <Row data={tableHead} flexArr={[2, 1, 1, 1]} style={styles.head} textStyle={styles.text}/>
           <TableWrapper style={{flexDirection: 'row'}}>
-            <Col data={tableTwoTitle} style={styles.title} textStyle={styles.text}/>
-            <Rows data={tableTwoData} flexArr={[1]} style={styles.row} textStyle={styles.tableDataText}/>
+            <Col data={tableTitle} style={styles.title} textStyle={styles.text} />
+            <Rows data={tableData} flexArr={[1, 1, 1,]} style={styles.row} textStyle={styles.tableDataText} />
           </TableWrapper>
         </Table>
         <View style={styles.break}></View>
+        <Text style={styles.textStyle}>Final scores:</Text>
+        <Text style={styles.textStyle}>{this.state.golferOne.name} : {finalBalances[0]}</Text>
+        <Text style={styles.textStyle}>{this.state.golferTwo.name} : {finalBalances[1]}</Text>
+        <Text style={styles.textStyle}>{this.state.golferThree.name} : {finalBalances[2]}</Text>
+        <Text style={styles.textStyle}>{this.state.golferFour.name} : {finalBalances[3]}</Text>
         <Button
           style={styles.buttonStyle}
           textStyle={styles.buttonTextStyle}
@@ -123,6 +137,14 @@ const styles = StyleSheet.create({
     color: 'red'
   },
   break: {
-    padding: 35
+    padding: 15
+  },
+  textStyle: {
+    color: 'darkgreen',
+    padding: 5,
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 10,
+    textAlign: 'center'
   }
 })

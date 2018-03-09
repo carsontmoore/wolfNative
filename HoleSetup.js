@@ -237,12 +237,19 @@ export default class HoleSetup extends Component {
 	render() {
 		const { navigate } = this.props.navigation;
 		const { params } = this.props.navigation.state;
+		const wolf = this.state.currentWolf;
 		return (
 			<ScrollView style={styles.scrollView}>
 			<View>
+			{this.state.isPigSelected ?
+				<Text style={styles.textStyle}>
+					{this.state.currentWolf} is the Pig!
+				</Text>
+			:
 				<Text style={styles.textStyle}>
 					{this.state.currentWolf} is the Wolf!
 				</Text>
+			}
 				<Button
 					style={styles.buttonStyle}
 					textStyle={styles.buttonTextStyle}

@@ -269,7 +269,6 @@ export default class FinalHoleSetup extends Component {
           onValueChange={(newBet) => this.setState({betUnit: newBet})}
           onSlidingComplete={(newBet) => this.setState({betUnit: newBet})}
         />
-
         <Text>
           The starting bet is now: {this.state.betUnit}
         </Text>
